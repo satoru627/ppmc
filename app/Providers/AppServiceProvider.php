@@ -5,10 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
-
-
-
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -26,12 +22,9 @@ class AppServiceProvider extends ServiceProvider
     // {
     //     view::share('appName', 'Hack App');
     // }
-   public function boot(): void
-{  
-    view::share('framework', 'Laravel');
-     
-}
-
-    
+    public function boot(): void
+    {
+        view::share('framework', 'Laravel');
+    }
 
 }
