@@ -1,0 +1,28 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+    <title id="title">PPMC</title>
+    <desc id="desc">Logo PPMC avec oeil stylise, lettre C et eclair.</desc>
+    <defs>
+        <linearGradient id="bg" x1="76" y1="54" x2="438" y2="464" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#32106D"/>
+            <stop offset="1" stop-color="#170739"/>
+        </linearGradient>
+        <linearGradient id="gold" x1="320" y1="86" x2="247" y2="450" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFE66D"/>
+            <stop offset="0.5" stop-color="#F5A623"/>
+            <stop offset="1" stop-color="#F4C76A"/>
+        </linearGradient>
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.22"/>
+        </filter>
+    </defs>
+
+    <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+    <g filter="url(#softShadow)">
+        <path d="M38 256C88 174 166 117 256 117C346 117 424 174 474 256C424 338 346 395 256 395C166 395 88 338 38 256Z" stroke="#FFFFFF" stroke-width="34" stroke-linejoin="round"/>
+
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M259 145C196.04 145 145 195.82 145 258.5C145 321.18 196.04 372 259 372C282.56 372 304.47 364.87 322.66 352.64L288.41 303.07C279.91 308.22 269.95 311.18 259.3 311.18C228.03 311.18 202.68 287.54 202.68 258.5C202.68 229.46 228.03 205.82 259.3 205.82C270.61 205.82 281.13 208.91 289.97 214.23L325.45 165.55C306.89 152.57 284 145 259 145Z" fill="#FFFFFF"/>
+
+        <path d="M355 72L225 268L302 253L209 455L349 236L278 250L355 72Z" fill="url(#gold)"/>
+    </g>
+</svg>

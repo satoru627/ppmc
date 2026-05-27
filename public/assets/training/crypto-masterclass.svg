@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#06152E"/>
+      <stop offset=".58" stop-color="#071B3B"/>
+      <stop offset="1" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#FFF3C4"/>
+      <stop offset="1" stop-color="#F4C76A"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="30" stdDeviation="28" flood-color="#000000" flood-opacity=".32"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <circle cx="1130" cy="150" r="230" fill="#2563EB" opacity=".32"/>
+  <circle cx="190" cy="760" r="260" fill="#F4C76A" opacity=".16"/>
+  <g filter="url(#shadow)">
+    <rect x="150" y="145" width="1100" height="610" rx="44" fill="#FFFFFF" opacity=".12" stroke="#FFFFFF" stroke-opacity=".22"/>
+    <rect x="205" y="205" width="990" height="500" rx="34" fill="#081A38"/>
+    <path d="M250 585 C350 490 410 540 500 410 C595 275 680 560 780 350 C850 205 940 350 1010 245 C1080 155 1130 210 1160 180" fill="none" stroke="#F4C76A" stroke-width="16" stroke-linecap="round"/>
+    <path d="M250 640 C350 545 410 590 500 475 C595 360 680 610 780 430 C850 315 940 430 1010 350 C1080 285 1130 310 1160 292 L1160 705 L250 705 Z" fill="#2563EB" opacity=".22"/>
+    <g opacity=".22" stroke="#FFFFFF">
+      <path d="M250 310H1160"/><path d="M250 410H1160"/><path d="M250 510H1160"/><path d="M250 610H1160"/>
+      <path d="M385 230V705"/><path d="M520 230V705"/><path d="M655 230V705"/><path d="M790 230V705"/><path d="M925 230V705"/><path d="M1060 230V705"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)">
+    <circle cx="1080" cy="650" r="82" fill="url(#gold)"/>
+    <circle cx="1080" cy="650" r="57" fill="none" stroke="#8A6209" stroke-opacity=".28" stroke-width="10"/>
+    <text x="1080" y="674" text-anchor="middle" font-family="Arial, sans-serif" font-size="72" font-weight="900" fill="#7A5304">$</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="250" y="665" width="340" height="150" rx="32" fill="#FFFFFF" opacity=".92"/>
+    <text x="290" y="725" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#071B3B">Crypto Trading</text>
+    <text x="290" y="768" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#2563EB">Signals + portfolio risk</text>
+  </g>
+</svg>
