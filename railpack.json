@@ -7,6 +7,10 @@
     "bison",
     "re2c",
     "libxml2-dev",
-    "libsqlite3-dev"
+    "libsqlite3-dev",
+    "pkg-config",
+    "autoconf",
+    "gcc",
+    "make"
   ]
 }
