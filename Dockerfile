@@ -1,36 +1,27 @@
 FROM php:8.4-apache
 
-# Installer les extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
     curl zip unzip git libpng-dev libonig-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd \
-    && a2enmod rewrite \
+    && docker-php-ext-enable pdo_mysql \
     && rm -rf /var/lib/apt/lists/*
 
-# Installer Composer
+RUN a2enmod rewrite
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier les fichiers de l'app
 COPY . .
 
-# Installer les dépendances PHP
 RUN composer install --optimize-autoloader --no-dev --no-interaction
 
-# Permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Configurer Apache
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
-RUN sed -i '/<Directory \/var\/www\/html>/,/<\/Directory>/s|AllowOverride None|AllowOverride All|' /etc/apache2/apache2.conf
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
-# Cache Laravel
-RUN php artisan config:cache \
-    && php artisan route:cache \
-    && php artisan view:cache
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 EXPOSE 80
 
