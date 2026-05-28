@@ -1,4 +1,4 @@
-FROM php:8.4-cli
+FROM dunglas/frankenphp:latest
 
 RUN apt-get update && apt-get install -y \
     curl zip unzip git libpng-dev libonig-dev libxml2-dev \
@@ -15,6 +15,6 @@ RUN composer install --optimize-autoloader --no-dev --no-interaction
 
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-EXPOSE 8000
+EXPOSE 80
 
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD ["frankenphp", "run", "--bind=0.0.0.0:80"]
