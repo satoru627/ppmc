@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd \
     && rm -rf /var/lib/apt/lists/*
 
+# Configurer PHP-FPM pour écouter sur le port 9000
+RUN sed -i 's/listen = \/run\/php-fpm.sock/listen = 127.0.0.1:9000/' /usr/local/etc/php-fpm.d/www.conf
+
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
