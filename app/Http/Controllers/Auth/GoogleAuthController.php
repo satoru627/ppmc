@@ -39,19 +39,12 @@ class GoogleAuthController extends Controller
             $googleUser = Socialite::driver('google')
                 ->redirectUrl(config('services.google.redirect'))
                 ->user();
-        } catch (InvalidStateException) {
-            try {
-                $googleUser = Socialite::driver('google')
-                    ->redirectUrl(config('services.google.redirect'))
-                    ->stateless()
-                    ->user();
-            } catch (Throwable $exception) {
-                report($exception);
+        } catch (InvalidStateException $exception) {
+            report($exception);
 
-                return redirect()
-                    ->route('login')
-                    ->withErrors(['email' => 'Connexion Google expiree ou session invalide. Reessayez depuis le bouton Google.']);
-            }
+            return redirect()
+                ->route('login')
+                ->withErrors(['email' => 'Connexion Google expiree ou session invalide. Reessayez depuis le bouton Google.']);
         } catch (Throwable $exception) {
             report($exception);
 
@@ -84,7 +77,6 @@ class GoogleAuthController extends Controller
                 'name' => $googleUser->getName() ?: Str::before($email, '@'),
                 'email' => $email,
                 'password' => Hash::make(Str::random(40)),
-                'role' => 'client',
                 'google_id' => $googleUser->getId(),
                 'google_avatar' => $googleUser->getAvatar(),
             ]);

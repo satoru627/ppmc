@@ -67,7 +67,6 @@ class OrderController extends Controller
                 'name' => $data['customer_name'],
                 'phone' => $data['customer_phone'] ?: null,
                 'password' => Hash::make(Str::random(32)),
-                'role' => 'client',
             ]
         );
 

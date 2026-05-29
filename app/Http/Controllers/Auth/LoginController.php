@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -30,20 +31,27 @@ class LoginController extends Controller
             'password' => ['required', 'string'],
         ]);
 
+        $this->ensureIsNotRateLimited($request);
+
         $user = User::where('email', $credentials['email'])->first();
 
         if ($user?->is_blocked) {
+            RateLimiter::hit($this->throttleKey($request));
+
             throw ValidationException::withMessages([
                 'email' => 'Votre compte est bloque. Contactez le support.',
             ]);
         }
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+            RateLimiter::hit($this->throttleKey($request));
+
             throw ValidationException::withMessages([
                 'email' => 'Identifiants incorrects.',
             ]);
         }
 
+        RateLimiter::clear($this->throttleKey($request));
         $request->session()->regenerate();
 
         return redirect()->intended(
@@ -62,5 +70,26 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('home');
+    }
+
+    /**
+     * Limite les tentatives de connexion par email et adresse IP.
+     */
+    private function ensureIsNotRateLimited(Request $request): void
+    {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey($request), 5)) {
+            return;
+        }
+
+        $seconds = RateLimiter::availableIn($this->throttleKey($request));
+
+        throw ValidationException::withMessages([
+            'email' => "Trop de tentatives de connexion. Reessayez dans {$seconds} secondes.",
+        ]);
+    }
+
+    private function throttleKey(Request $request): string
+    {
+        return strtolower((string) $request->input('email')).'|'.$request->ip();
     }
 }

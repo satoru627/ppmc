@@ -23,8 +23,8 @@ class ProductRequest extends FormRequest
             'type' => ['required', Rule::in(['formation', 'service'])],
             'price' => ['required', 'integer', 'min:500'],
             'chariow_checkout_url' => ['nullable', 'string', 'max:2048', 'url', 'starts_with:https://'],
-            'product_file' => ['nullable', 'file', 'max:51200'],
-            'image' => ['nullable', 'image', 'max:5120'],
+            'product_file' => ['nullable', 'file', 'max:51200', 'mimes:pdf,zip,mp4,mov,doc,docx,ppt,pptx,xls,xlsx,txt'],
+            'image' => ['nullable', 'image', 'max:5120', 'mimes:jpg,jpeg,png,webp,avif'],
             'is_active' => ['nullable', 'boolean'],
         ];
     }

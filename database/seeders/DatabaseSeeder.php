@@ -15,15 +15,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
-            ['email' => env('ADMIN_EMAIL', 'admin@example.com')],
-            [
+        $adminEmail = env('ADMIN_EMAIL');
+        $adminPassword = env('ADMIN_PASSWORD');
+
+        if ($adminEmail && $adminPassword && ! User::where('email', $adminEmail)->exists()) {
+            User::forceCreate([
                 'name' => env('ADMIN_NAME', 'Administrateur'),
+                'email' => $adminEmail,
                 'phone' => env('ADMIN_PHONE', '+237600000000'),
-                'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+                'password' => Hash::make($adminPassword),
                 'role' => 'admin',
-            ]
-        );
+            ]);
+        }
 
         if (Product::query()->exists()) {
             return;

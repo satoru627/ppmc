@@ -41,7 +41,7 @@ class UserController extends Controller
             return back()->withErrors(['user' => 'Vous ne pouvez pas bloquer votre propre compte.']);
         }
 
-        $user->update(['is_blocked' => ! $user->is_blocked]);
+        $user->forceFill(['is_blocked' => ! $user->is_blocked])->save();
 
         return back()->with('success', 'Statut utilisateur mis a jour.');
     }
