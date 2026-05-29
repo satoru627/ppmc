@@ -114,6 +114,22 @@
         </svg>
         @break
 
+    @case('eye')
+        <svg {{ $attributes->merge(['class' => 'h-5 w-5']) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2.1 12s3.6-7 9.9-7 9.9 7 9.9 7-3.6 7-9.9 7-9.9-7-9.9-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+        @break
+
+    @case('eye-off')
+        <svg {{ $attributes->merge(['class' => 'h-5 w-5']) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m3 3 18 18"></path>
+            <path d="M10.7 5.1A10.8 10.8 0 0 1 12 5c6.3 0 9.9 7 9.9 7a17.4 17.4 0 0 1-2.7 3.6"></path>
+            <path d="M6.6 6.6A16.9 16.9 0 0 0 2.1 12s3.6 7 9.9 7a10.7 10.7 0 0 0 4.7-1.1"></path>
+            <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"></path>
+        </svg>
+        @break
+
     @case('monitor')
         <svg {{ $attributes->merge(['class' => 'h-5 w-5']) }} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="4" width="18" height="12" rx="2"></rect>

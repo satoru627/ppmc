@@ -274,6 +274,22 @@
                 });
             });
 
+            document.querySelectorAll('[data-password-toggle]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const input = document.getElementById(button.dataset.passwordTarget);
+                    if (!input) return;
+
+                    const showPassword = input.type === 'password';
+                    input.type = showPassword ? 'text' : 'password';
+                    button.setAttribute('aria-pressed', showPassword ? 'true' : 'false');
+                    button.setAttribute('aria-label', showPassword
+                        ? (button.dataset.passwordLabelHide || 'Masquer le mot de passe')
+                        : (button.dataset.passwordLabelShow || 'Afficher le mot de passe'));
+                    button.querySelector('[data-password-icon-show]')?.classList.toggle('hidden', showPassword);
+                    button.querySelector('[data-password-icon-hide]')?.classList.toggle('hidden', !showPassword);
+                });
+            });
+
             const toggle = document.querySelector('[data-nav-toggle]');
             const menu = document.querySelector('[data-mobile-menu]');
             if (!toggle || !menu) return;

@@ -61,11 +61,23 @@
                             <div class="grid gap-4 sm:grid-cols-2">
                                 <label class="grid gap-2 text-sm font-black text-white">
                                     Mot de passe
-                                    <input name="password" type="password" required class="h-12 rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white outline-none transition focus:border-gold focus:bg-white/15">
+                                    <span class="relative block">
+                                        <input id="register-password" name="password" type="password" autocomplete="new-password" required class="h-12 w-full rounded-2xl border border-white/10 bg-white/10 px-5 pr-12 text-sm font-semibold text-white outline-none transition focus:border-gold focus:bg-white/15">
+                                        <button type="button" class="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-2xl text-white/55 transition hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50" aria-label="Afficher le mot de passe" aria-pressed="false" data-password-toggle data-password-target="register-password" data-password-label-show="Afficher le mot de passe" data-password-label-hide="Masquer le mot de passe">
+                                            <span data-password-icon-show><x-icon name="eye" class="h-4 w-4" /></span>
+                                            <span class="hidden" data-password-icon-hide><x-icon name="eye-off" class="h-4 w-4" /></span>
+                                        </button>
+                                    </span>
                                 </label>
                                 <label class="grid gap-2 text-sm font-black text-white">
                                     Confirmation
-                                    <input name="password_confirmation" type="password" required class="h-12 rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white outline-none transition focus:border-gold focus:bg-white/15">
+                                    <span class="relative block">
+                                        <input id="register-password-confirmation" name="password_confirmation" type="password" autocomplete="new-password" required class="h-12 w-full rounded-2xl border border-white/10 bg-white/10 px-5 pr-12 text-sm font-semibold text-white outline-none transition focus:border-gold focus:bg-white/15">
+                                        <button type="button" class="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-2xl text-white/55 transition hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50" aria-label="Afficher la confirmation du mot de passe" aria-pressed="false" data-password-toggle data-password-target="register-password-confirmation" data-password-label-show="Afficher la confirmation du mot de passe" data-password-label-hide="Masquer la confirmation du mot de passe">
+                                            <span data-password-icon-show><x-icon name="eye" class="h-4 w-4" /></span>
+                                            <span class="hidden" data-password-icon-hide><x-icon name="eye-off" class="h-4 w-4" /></span>
+                                        </button>
+                                    </span>
                                 </label>
                             </div>
 

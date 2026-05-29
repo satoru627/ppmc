@@ -54,7 +54,13 @@
 
                         <label class="grid gap-2 text-sm font-black text-white">
                             Mot de passe
-                            <input name="password" type="password" required class="h-12 rounded-2xl border border-white/10 bg-white/10 px-5 text-sm font-semibold text-white outline-none transition placeholder:text-white/30 focus:border-gold focus:bg-white/15" placeholder="Votre mot de passe">
+                            <span class="relative block">
+                                <input id="login-password" name="password" type="password" autocomplete="current-password" required class="h-12 w-full rounded-2xl border border-white/10 bg-white/10 px-5 pr-12 text-sm font-semibold text-white outline-none transition placeholder:text-white/30 focus:border-gold focus:bg-white/15" placeholder="Votre mot de passe">
+                                <button type="button" class="absolute inset-y-0 right-0 grid w-12 place-items-center rounded-r-2xl text-white/55 transition hover:text-gold focus:outline-none focus:ring-2 focus:ring-gold/50" aria-label="Afficher le mot de passe" aria-pressed="false" data-password-toggle data-password-target="login-password" data-password-label-show="Afficher le mot de passe" data-password-label-hide="Masquer le mot de passe">
+                                    <span data-password-icon-show><x-icon name="eye" class="h-4 w-4" /></span>
+                                    <span class="hidden" data-password-icon-hide><x-icon name="eye-off" class="h-4 w-4" /></span>
+                                </button>
+                            </span>
                         </label>
 
                         <div class="flex flex-wrap items-center justify-between gap-3">
