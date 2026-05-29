@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,9 +23,13 @@ class AppServiceProvider extends ServiceProvider
     // {
     //     view::share('appName', 'Hack App');
     // }
-    public function boot(): void
-    {
-        view::share('framework', 'Laravel');
-    }
+   {
+      if (app()->environment('production')) {
+          URL::forceScheme('https');
+      }
+
+      view::share('framework', 'Laravel');
+  }
+
 
 }
