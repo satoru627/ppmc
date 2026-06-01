@@ -11,6 +11,28 @@
         ];
         $selectedPlatform = $selectedPlatform ?? null;
         $currentPlatform = $selectedPlatform ? $platforms[$selectedPlatform] : null;
+        $platformStyles = [
+            'tiktok' => [
+                'accent' => 'bg-[#111827]',
+                'soft' => 'border-slate-200 bg-slate-50 text-slate-800',
+                'label' => 'TikTok',
+            ],
+            'facebook' => [
+                'accent' => 'bg-[#1877F2]',
+                'soft' => 'border-blue-100 bg-blue-50 text-blue-700',
+                'label' => 'Facebook',
+            ],
+            'youtube' => [
+                'accent' => 'bg-[#FF0000]',
+                'soft' => 'border-red-100 bg-red-50 text-red-700',
+                'label' => 'YouTube',
+            ],
+        ];
+        $platformTags = [
+            'tiktok' => ['Monetises', 'Starter', 'Niches'],
+            'facebook' => ['Pages', 'Reels', 'Verified'],
+            'youtube' => ['AdSense', 'Starter', 'Chaines'],
+        ];
 
         $fallbackProducts = [
             'tiktok' => [
@@ -89,7 +111,10 @@
                 <div class="flex flex-wrap items-center gap-2">
                     <a href="{{ route('service') }}" class="rounded-xl px-4 py-3 text-xs font-black transition sm:px-5 {{ $selectedPlatform ? 'bg-mist text-navy hover:bg-royal hover:text-white' : 'bg-royal text-white shadow-glow' }}">Tout</a>
                     @foreach($platforms as $slug => $platform)
-                        <a href="{{ route('service.platform', $slug) }}" class="rounded-xl px-4 py-3 text-xs font-black transition sm:px-5 {{ $selectedPlatform === $slug ? 'bg-royal text-white shadow-glow' : 'bg-mist text-navy hover:bg-royal hover:text-white' }}">{{ $platform['name'] }}</a>
+                        <a href="{{ route('service.platform', $slug) }}" class="inline-flex items-center gap-2 rounded-xl px-4 py-3 text-xs font-black transition sm:px-5 {{ $selectedPlatform === $slug ? 'bg-royal text-white shadow-glow' : 'bg-mist text-navy hover:bg-royal hover:text-white' }}">
+                            <span class="grid h-5 w-5 place-items-center"><x-social-logo :name="$platform['logo']" class="h-4 w-4" /></span>
+                            {{ $platform['name'] }}
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -97,14 +122,23 @@
             @unless($selectedPlatform)
                 <div class="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-5">
                     @foreach($platforms as $slug => $platform)
-                        <a href="{{ route('service.platform', $slug) }}" class="group rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:p-6">
+                        @php($style = $platformStyles[$slug] ?? $platformStyles['tiktok'])
+                        <a href="{{ route('service.platform', $slug) }}" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem]">
+                            <span class="block h-1.5 {{ $style['accent'] }}"></span>
+                            <div class="p-4 sm:p-6">
                             <div class="flex items-start justify-between gap-4">
-                                <span class="grid h-12 w-12 shrink-0 place-items-center"><x-social-logo :name="$platform['logo']" class="h-10 w-10" /></span>
+                                <span class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border {{ $style['soft'] }}"><x-social-logo :name="$platform['logo']" class="h-8 w-8" /></span>
                                 <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">{{ ($platformCounts[$slug] ?? 0) ?: $platform['fallback_count'] }} actifs</span>
                             </div>
                             <h2 class="mt-5 text-xl font-black leading-tight text-navy sm:text-2xl">{{ $platform['headline'] }}</h2>
                             <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500 sm:text-sm sm:leading-6">{{ $platform['description'] }}</p>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                @foreach($platformTags[$slug] ?? [] as $tag)
+                                    <span class="rounded-full border px-3 py-1 text-[10px] font-black {{ $style['soft'] }}">{{ $tag }}</span>
+                                @endforeach
+                            </div>
                             <span class="mt-5 inline-flex rounded-full bg-royal px-4 py-2.5 text-xs font-black text-white shadow-glow transition group-hover:bg-navy">Voir {{ $platform['name'] }}</span>
+                            </div>
                         </a>
                     @endforeach
                 </div>
@@ -115,9 +149,10 @@
                     @php
                         $platformSlug = $selectedPlatform ?: $detectServicePlatform($product);
                         $platform = $platforms[$platformSlug] ?? $platforms['tiktok'];
+                        $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                     @endphp
                     <article
-                        class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                        class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
                         data-service-card
                         data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $platform['name']) }}"
                     >
@@ -132,7 +167,7 @@
 
                         <div class="p-4 sm:p-6">
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="rounded-full bg-royal/10 px-3 py-1 text-[10px] font-black text-royal sm:text-xs">{{ $platform['name'] }}</span>
+                                <span class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-black sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$platform['logo']" class="h-3.5 w-3.5" />{{ $platform['name'] }}</span>
                                 <span class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:text-xs">Disponible</span>
                             </div>
                             <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $product->title }}</h2>
@@ -146,9 +181,12 @@
                     </article>
                 @empty
                     @foreach($visibleFallbackRows as [$platformSlug, $title, $logo, $description, $followers, $status, $price, $image, $linkedProduct])
-                        @php($platform = $platforms[$platformSlug] ?? $platforms['tiktok'])
+                        @php
+                            $platform = $platforms[$platformSlug] ?? $platforms['tiktok'];
+                            $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
+                        @endphp
                         <article
-                            class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                            class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
                             data-service-card
                             data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $platform['name'] . ' ' . $status) }}"
                         >
@@ -163,7 +201,7 @@
 
                             <div class="p-4 sm:p-6">
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <span class="rounded-full bg-royal/10 px-3 py-1 text-[10px] font-black text-royal sm:text-xs">{{ $platform['name'] }}</span>
+                                    <span class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-black sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$logo" class="h-3.5 w-3.5" />{{ $platform['name'] }}</span>
                                     <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">{{ $status }}</span>
                                 </div>
                                 <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $title }}</h2>
