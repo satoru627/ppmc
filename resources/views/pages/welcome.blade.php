@@ -66,7 +66,9 @@
 
                     <div class="hidden items-center gap-5 lg:flex">
                         <span class="grid h-9 w-9 place-items-center rounded-full bg-white/5 text-white/80"><x-icon name="clock" class="h-4 w-4" /></span>
-                        @auth
+                        @guest
+                            <a href="{{ route('login') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5" data-loading-link>Login</a>
+                        @else
                             @if(auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5">Dashboard</a>
                             <form action="{{ route('logout') }}" method="POST">
@@ -74,7 +76,7 @@
                                 <button type="submit" class="text-sm font-black text-white/85 transition hover:text-[#E3A72F]">Deconnexion</button>
                             </form>
                             @endif
-                        @endauth
+                        @endguest
                     </div>
 
                     <button
@@ -110,6 +112,8 @@
                             <button type="submit" class="block w-full rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white">Deconnexion</button>
                         </form>
                         @endif
+                    @else
+                        <a href="{{ route('login') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-welcome-nav-link data-loading-link>Login</a>
                     @endauth
                 </aside>
             </div>
