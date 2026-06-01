@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('title', 'Services - ' . config('app.name', '[NOM_DU_SITE]'))
-@section('nav_mode', 'dark')
 
 @section('content')
     @php
         $platforms = $platforms ?? [
-            'tiktok' => ['name' => 'TikTok', 'logo' => 'tiktok', 'headline' => 'Comptes TikTok', 'description' => 'Comptes TikTok monetises ou de demarrage.', 'fallback_count' => '50+', 'metric' => 'Videos courtes'],
-            'facebook' => ['name' => 'Facebook', 'logo' => 'facebook', 'headline' => 'Pages Facebook', 'description' => 'Pages Facebook monetisees et actives.', 'fallback_count' => '20+', 'metric' => 'Reels & audience'],
-            'youtube' => ['name' => 'YouTube', 'logo' => 'youtube', 'headline' => 'Chaines YouTube', 'description' => 'Chaines YouTube monetisees ou starter.', 'fallback_count' => '30+', 'metric' => 'AdSense & contenu'],
+            'tiktok' => ['name' => 'TikTok', 'logo' => 'tiktok', 'headline' => 'Comptes TikTok', 'description' => 'Comptes TikTok monetises ou de demarrage.', 'fallback_count' => '50+', 'metric' => 'Videos courtes', 'keywords' => ['tiktok']],
+            'facebook' => ['name' => 'Facebook', 'logo' => 'facebook', 'headline' => 'Pages Facebook', 'description' => 'Pages Facebook monetisees et actives.', 'fallback_count' => '20+', 'metric' => 'Reels & audience', 'keywords' => ['facebook', 'page']],
+            'youtube' => ['name' => 'YouTube', 'logo' => 'youtube', 'headline' => 'Chaines YouTube', 'description' => 'Chaines YouTube monetisees ou starter.', 'fallback_count' => '30+', 'metric' => 'AdSense & contenu', 'keywords' => ['youtube', 'chaine', 'channel']],
         ];
         $selectedPlatform = $selectedPlatform ?? null;
         $currentPlatform = $selectedPlatform ? $platforms[$selectedPlatform] : null;
@@ -30,167 +29,196 @@
                 ['YouTube Channel 5K Growth', 'youtube', 'Base solide pour publication reguliere et croissance organique.', '5K abonnes', 'Starter', '210 000 FCFA', '/assets/training/youtube-growth.jpg', $products->firstWhere('slug', 'youtube-channel-5k-growth')],
             ],
         ];
+
+        $fallbackRows = [];
+        foreach ($fallbackProducts as $platformSlug => $items) {
+            foreach ($items as $item) {
+                $fallbackRows[] = array_merge([$platformSlug], $item);
+            }
+        }
+
+        $visibleFallbackRows = $selectedPlatform
+            ? array_map(fn (array $item): array => array_merge([$selectedPlatform], $item), $fallbackProducts[$selectedPlatform] ?? [])
+            : $fallbackRows;
+
+        $detectServicePlatform = function ($product) use ($platforms): string {
+            $text = \Illuminate\Support\Str::lower($product->title . ' ' . $product->slug . ' ' . $product->description);
+
+            foreach ($platforms as $slug => $platform) {
+                foreach (($platform['keywords'] ?? [$slug]) as $keyword) {
+                    if (str_contains($text, \Illuminate\Support\Str::lower($keyword))) {
+                        return $slug;
+                    }
+                }
+            }
+
+            return 'tiktok';
+        };
+
+        $serviceCount = $serviceProducts->count() ?: count($visibleFallbackRows);
     @endphp
 
-    <section class="relative -mt-24 overflow-hidden px-4 pb-10 pt-28 sm:px-6 sm:pb-20 sm:pt-36 lg:px-8 lg:pb-28">
-        <div class="absolute inset-0 overflow-hidden bg-navy"></div>
+    <section class="bg-mist px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <div class="mx-auto max-w-7xl">
+            <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                <div class="max-w-3xl">
+                    <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Services</p>
+                    <h1 class="mt-2 text-3xl font-black leading-tight text-navy sm:text-5xl">
+                        {{ $currentPlatform ? $currentPlatform['headline'] : 'Tous les services.' }}
+                    </h1>
+                    <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
+                        {{ $currentPlatform ? $currentPlatform['description'] : 'Choisissez une plateforme, recherchez un compte et ouvrez rapidement le detail.' }}
+                    </p>
+                </div>
+                <span class="w-fit rounded-full bg-white px-5 py-3 text-xs font-black text-royal shadow-soft sm:text-sm">
+                    {{ $serviceCount }} service{{ $serviceCount > 1 ? 's' : '' }}
+                </span>
+            </div>
 
-        <div class="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 md:grid-cols-[1.05fr_0.95fr] md:gap-8 xl:gap-16">
-            <div class="z-10 text-white">
-                <p class="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.12em] text-gold backdrop-blur-md sm:mb-8 sm:px-4 sm:py-2 sm:text-xs sm:tracking-[0.15em]">
-                    <span class="relative flex h-1.5 w-1.5 shrink-0 sm:h-2 sm:w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold opacity-75"></span><span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold sm:h-2 sm:w-2"></span></span>
-                    <span class="truncate">{{ $currentPlatform ? $currentPlatform['name'] : 'Catalogue de Services Premium' }}</span>
-                </p>
-                <h1 class="max-w-4xl text-[2.35rem] font-black leading-[1.02] tracking-normal sm:text-6xl xl:text-[80px]">
-                    {{ $currentPlatform ? $currentPlatform['headline'] : 'Choisissez votre' }} <br>
-                    <span class="bg-gradient-to-r from-white via-white to-gold bg-clip-text text-transparent">{{ $currentPlatform ? 'disponibles' : 'Plateforme' }}</span>
-                </h1>
-                <p class="mt-4 max-w-xl text-sm font-medium leading-7 text-white/65 sm:mt-8 sm:text-xl sm:leading-9">
-                    {{ $currentPlatform ? $currentPlatform['description'] : 'TikTok, Facebook ou YouTube : choisissez une plateforme, puis consultez uniquement les comptes correspondants.' }}
-                </p>
-                <div class="mt-6 grid grid-cols-1 gap-2 sm:mt-10 sm:flex sm:flex-row sm:items-center sm:gap-5 lg:mt-12">
-                    @if($currentPlatform)
-                        <a href="#accounts" class="rounded-full bg-gold px-6 py-3.5 text-center text-xs font-black text-navy shadow-gold transition hover:scale-105 sm:px-10 sm:py-5 sm:text-sm">Voir les comptes</a>
-                        <a href="{{ route('service') }}" class="rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-center text-xs font-black text-white backdrop-blur-md transition hover:bg-white/10 sm:px-10 sm:py-5 sm:text-sm">Toutes les plateformes</a>
-                    @else
-                        <a href="#platforms" class="rounded-full bg-gold px-6 py-3.5 text-center text-xs font-black text-navy shadow-gold transition hover:scale-105 sm:px-10 sm:py-5 sm:text-sm">Choisir une plateforme</a>
-                        <a href="{{ route('catalog', ['type' => 'service']) }}" class="rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-center text-xs font-black text-white backdrop-blur-md transition hover:bg-white/10 sm:px-10 sm:py-5 sm:text-sm">Tout le catalogue</a>
-                    @endif
+            <div class="mt-6 grid gap-3 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-premium sm:rounded-[2rem] sm:p-5 lg:grid-cols-[1fr_auto] lg:items-center">
+                <label class="grid gap-2 text-sm font-black text-navy">
+                    Rechercher
+                    <input
+                        type="search"
+                        class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white"
+                        placeholder="TikTok, Facebook, YouTube, monetise..."
+                        data-service-search
+                    >
+                </label>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <a href="{{ route('service') }}" class="rounded-xl px-4 py-3 text-xs font-black transition sm:px-5 {{ $selectedPlatform ? 'bg-mist text-navy hover:bg-royal hover:text-white' : 'bg-royal text-white shadow-glow' }}">Tout</a>
+                    @foreach($platforms as $slug => $platform)
+                        <a href="{{ route('service.platform', $slug) }}" class="rounded-xl px-4 py-3 text-xs font-black transition sm:px-5 {{ $selectedPlatform === $slug ? 'bg-royal text-white shadow-glow' : 'bg-mist text-navy hover:bg-royal hover:text-white' }}">{{ $platform['name'] }}</a>
+                    @endforeach
                 </div>
             </div>
 
-            <div class="relative w-full max-w-md justify-self-center perspective-1000 md:max-w-none">
-                <div class="relative z-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-navy/55 p-4 shadow-2xl backdrop-blur-2xl md:p-5 xl:animate-float xl:rounded-[2.5rem] xl:bg-white/[0.03] xl:p-8">
-                    <div class="mb-5 flex items-center justify-between gap-4 sm:mb-8">
-                        <div class="min-w-0">
-                            <div class="flex items-center gap-2"><span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span><p class="truncate text-[10px] font-black uppercase tracking-[0.14em] text-white/60">Selection rapide</p></div>
-                            <h2 class="mt-1 text-xl font-black text-white sm:text-3xl">{{ $currentPlatform ? $currentPlatform['name'] : 'Services' }}</h2>
-                        </div>
-                        <span class="grid h-12 w-12 shrink-0 place-items-center">
-                            @if($currentPlatform)
-                                <x-social-logo :name="$currentPlatform['logo']" class="h-9 w-9" />
-                            @else
-                                <x-icon name="briefcase" class="h-8 w-8 text-gold" />
-                            @endif
-                        </span>
-                    </div>
-
-                    <div class="grid gap-2 sm:gap-4">
-                        @foreach($platforms as $slug => $platform)
-                            <a href="{{ route('service.platform', $slug) }}" class="rounded-2xl border border-white/5 bg-white/[0.05] p-3 transition hover:-translate-y-1 hover:bg-white/[0.09] sm:rounded-3xl sm:p-4">
-                                <div class="flex items-center gap-3 sm:gap-4">
-                                    <span class="grid h-10 w-10 shrink-0 place-items-center sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-7 w-7 sm:h-8 sm:w-8" /></span>
-                                    <div class="min-w-0">
-                                        <p class="truncate text-sm font-black text-white sm:text-base">{{ $platform['headline'] }}</p>
-                                        <p class="truncate text-[11px] font-bold text-white/60 sm:text-xs">{{ ($platformCounts[$slug] ?? 0) ?: $platform['fallback_count'] }} actifs</p>
-                                    </div>
-                                </div>
-                            </a>
-                        @endforeach
-                    </div>
+            @unless($selectedPlatform)
+                <div class="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-5">
+                    @foreach($platforms as $slug => $platform)
+                        <a href="{{ route('service.platform', $slug) }}" class="group rounded-[1.35rem] border border-slate-200 bg-white p-4 shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:p-6">
+                            <div class="flex items-start justify-between gap-4">
+                                <span class="grid h-12 w-12 shrink-0 place-items-center"><x-social-logo :name="$platform['logo']" class="h-10 w-10" /></span>
+                                <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">{{ ($platformCounts[$slug] ?? 0) ?: $platform['fallback_count'] }} actifs</span>
+                            </div>
+                            <h2 class="mt-5 text-xl font-black leading-tight text-navy sm:text-2xl">{{ $platform['headline'] }}</h2>
+                            <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500 sm:text-sm sm:leading-6">{{ $platform['description'] }}</p>
+                            <span class="mt-5 inline-flex rounded-full bg-royal px-4 py-2.5 text-xs font-black text-white shadow-glow transition group-hover:bg-navy">Voir {{ $platform['name'] }}</span>
+                        </a>
+                    @endforeach
                 </div>
+            @endunless
+
+            <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4" data-service-grid>
+                @forelse($serviceProducts as $product)
+                    @php
+                        $platformSlug = $selectedPlatform ?: $detectServicePlatform($product);
+                        $platform = $platforms[$platformSlug] ?? $platforms['tiktok'];
+                    @endphp
+                    <article
+                        class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                        data-service-card
+                        data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $platform['name']) }}"
+                    >
+                        <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
+                            <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 grid h-10 w-10 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-8 w-8 sm:h-10 sm:w-10" /></span>
+                            @if($product->is_on_promotion)
+                                <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                            @endif
+                        </div>
+
+                        <div class="p-4 sm:p-6">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="rounded-full bg-royal/10 px-3 py-1 text-[10px] font-black text-royal sm:text-xs">{{ $platform['name'] }}</span>
+                                <span class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:text-xs">Disponible</span>
+                            </div>
+                            <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $product->title }}</h2>
+                            <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $product->description }}</p>
+                        </div>
+
+                        <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                            <x-product-price :product="$product" />
+                            <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir detail</a>
+                        </div>
+                    </article>
+                @empty
+                    @foreach($visibleFallbackRows as [$platformSlug, $title, $logo, $description, $followers, $status, $price, $image, $linkedProduct])
+                        @php($platform = $platforms[$platformSlug] ?? $platforms['tiktok'])
+                        <article
+                            class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                            data-service-card
+                            data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $platform['name'] . ' ' . $status) }}"
+                        >
+                            <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
+                                <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
+                                <span class="absolute bottom-3 left-3 grid h-10 w-10 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$logo" class="h-8 w-8 sm:h-10 sm:w-10" /></span>
+                                @if($linkedProduct?->is_on_promotion)
+                                    <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                                @endif
+                            </div>
+
+                            <div class="p-4 sm:p-6">
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <span class="rounded-full bg-royal/10 px-3 py-1 text-[10px] font-black text-royal sm:text-xs">{{ $platform['name'] }}</span>
+                                    <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">{{ $status }}</span>
+                                </div>
+                                <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $title }}</h2>
+                                <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $description }}</p>
+                                <p class="mt-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">{{ $followers }}</p>
+                            </div>
+
+                            <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                                @if($linkedProduct)
+                                    <x-product-price :product="$linkedProduct" />
+                                @else
+                                    <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
+                                @endif
+                                <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir detail</a>
+                            </div>
+                        </article>
+                    @endforeach
+                @endforelse
+            </div>
+
+            <div class="mt-8 hidden rounded-[1.5rem] border border-slate-200 bg-white px-5 py-8 text-center shadow-premium" data-service-empty>
+                <p class="text-sm font-black text-navy">Aucun service ne correspond a votre recherche.</p>
+                <p class="mt-2 text-xs font-semibold text-slate-500">Essayez un autre mot-cle ou changez de plateforme.</p>
             </div>
         </div>
     </section>
 
-    @if(! $selectedPlatform)
-        <section class="bg-white px-4 py-12 sm:px-6 sm:py-20 lg:px-8" id="platforms">
-            <div class="mx-auto max-w-7xl">
-                <div class="mb-10 max-w-3xl">
-                    <p class="text-sm font-black uppercase tracking-[0.18em] text-royal">Services par plateforme</p>
-                    <h2 class="mt-3 text-3xl font-black leading-tight text-navy sm:text-5xl">Un bloc clair pour chaque type de compte.</h2>
-                    <p class="mt-4 text-sm font-semibold leading-7 text-slate-500 sm:text-base">choisi ta plateforme et opte pour ton service.
-                    </p>
-                </div>
+    @push('scripts')
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const search = document.querySelector('[data-service-search]');
+                const grid = document.querySelector('[data-service-grid]');
+                const emptyState = document.querySelector('[data-service-empty]');
 
-                <div class="grid gap-4 sm:grid-cols-3 sm:gap-6">
-                    @foreach($platforms as $slug => $platform)
-                        <a href="{{ route('service.platform', $slug) }}" class="premium-card group overflow-hidden rounded-[1.5rem] p-5 transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem] sm:p-7">
-                            <div class="mb-7 flex items-start justify-between gap-4">
-                                <span class="grid h-14 w-14 shrink-0 place-items-center"><x-social-logo :name="$platform['logo']" class="h-12 w-12" /></span>
-                                <span class="rounded-full bg-gold/20 px-3 py-1 text-xs font-black text-[#805B08]">{{ ($platformCounts[$slug] ?? 0) ?: $platform['fallback_count'] }} actifs</span>
-                            </div>
-                            <h3 class="text-2xl font-black leading-tight text-navy">{{ $platform['headline'] }}</h3>
-                            <p class="mt-3 min-h-20 text-sm font-semibold leading-7 text-slate-500">{{ $platform['description'] }}</p>
-                            <div class="mt-6 grid gap-2">
-                                <div class="rounded-2xl bg-mist p-4">
-                                    <p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Orientation</p>
-                                    <p class="mt-1 text-sm font-black text-navy">{{ $platform['metric'] }}</p>
-                                </div>
-                            </div>
-                            <span class="mt-6 inline-flex rounded-full bg-royal px-5 py-3 text-xs font-black text-white shadow-glow transition group-hover:bg-navy">Voir les comptes {{ $platform['name'] }}</span>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-        </section>
-    @else
-        <section class="bg-white px-4 py-12 sm:px-6 sm:py-20 lg:px-8" id="accounts">
-            <div class="mx-auto max-w-7xl">
-                <div class="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-                    <div class="max-w-3xl">
-                        <p class="text-sm font-black uppercase tracking-[0.18em] text-royal">{{ $currentPlatform['name'] }}</p>
-                        <h2 class="mt-3 text-3xl font-black leading-tight text-navy sm:text-5xl">{{ $currentPlatform['headline'] }} uniquement.</h2>
-                        <p class="mt-4 text-sm font-semibold leading-7 text-slate-500 sm:text-base">Tous les produits ci-dessous concernent uniquement {{ $currentPlatform['name'] }}.</p>
-                    </div>
-                    <a href="{{ route('service') }}" class="w-fit rounded-full bg-navy px-5 py-3 text-xs font-black text-white shadow-premium sm:px-6 sm:py-4 sm:text-sm">Changer de plateforme</a>
-                </div>
+                if (!search || !grid) return;
 
-                <div class="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
-                    @forelse($serviceProducts as $product)
-                        <article class="premium-card rounded-[1.5rem] p-4 transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem] sm:p-7">
-                            <div class="mb-6 flex items-start justify-between gap-3">
-                                <span class="grid h-12 w-12 shrink-0 place-items-center"><x-social-logo :name="$currentPlatform['logo']" class="h-9 w-9" /></span>
-                                <div class="flex flex-col items-end gap-2">
-                                    <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">Disponible</span>
-                                    @if($product->is_on_promotion)
-                                        <span class="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <h3 class="min-h-10 text-sm font-black leading-tight text-navy sm:text-2xl">{{ $product->title }}</h3>
-                            <p class="mt-3 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $product->description }}</p>
-                            <div class="mt-5 grid gap-2 sm:grid-cols-2">
-                                <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Type</p><p class="mt-1 text-xs font-black text-navy">Service</p></div>
-                                <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Plateforme</p><p class="mt-1 text-xs font-black text-navy">{{ $currentPlatform['name'] }}</p></div>
-                            </div>
-                            <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                <x-product-price :product="$product" />
-                                <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-4 py-2 text-center text-xs font-black text-white shadow-glow">Acheter</a>
-                            </div>
-                        </article>
-                    @empty
-                        @foreach($fallbackProducts[$selectedPlatform] as [$title, $logo, $description, $followers, $status, $price, $image, $linkedProduct])
-                            <article class="overflow-hidden rounded-[1.5rem] bg-white shadow-premium transition hover:-translate-y-2 sm:rounded-[2rem]">
-                                <div class="relative flex min-h-[150px] items-center justify-center overflow-hidden bg-navy sm:min-h-[220px]">
-                                    <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                    @if($linkedProduct?->is_on_promotion)
-                                        <span class="absolute right-4 top-4 rounded-full bg-rose-600 px-3 py-1 text-xs font-black text-white shadow-premium">Promo</span>
-                                    @endif
-                                    <span class="relative grid h-14 w-14 place-items-center drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)]"><x-social-logo :name="$logo" class="h-10 w-10" /></span>
-                                    <h3 class="absolute bottom-5 left-5 right-5 text-base font-black leading-tight text-white sm:text-2xl">{{ $title }}</h3>
-                                </div>
-                                <div class="p-4 sm:p-7">
-                                    <p class="line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $description }}</p>
-                                    <div class="mt-5 grid gap-2 sm:grid-cols-2">
-                                        <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Audience</p><p class="mt-1 text-xs font-black text-navy">{{ $followers }}</p></div>
-                                        <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Statut</p><p class="mt-1 text-xs font-black text-navy">{{ $status }}</p></div>
-                                    </div>
-                                    <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                        @if($linkedProduct)
-                                            <x-product-price :product="$linkedProduct" />
-                                        @else
-                                            <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
-                                        @endif
-                                        <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-navy px-4 py-2 text-center text-xs font-black text-white shadow-premium">Voir detail</a>
-                                    </div>
-                                </div>
-                            </article>
-                        @endforeach
-                    @endforelse
-                </div>
-            </div>
-        </section>
-    @endif
+                const cards = Array.from(grid.querySelectorAll('[data-service-card]'));
+
+                const applySearch = () => {
+                    const query = search.value.trim().toLowerCase();
+                    let visibleCount = 0;
+
+                    cards.forEach((card) => {
+                        const visible = !query || (card.dataset.search || '').includes(query);
+
+                        card.classList.toggle('hidden', !visible);
+                        if (visible) visibleCount += 1;
+                    });
+
+                    emptyState?.classList.toggle('hidden', visibleCount !== 0);
+                };
+
+                search.addEventListener('input', applySearch);
+                applySearch();
+            });
+        </script>
+    @endpush
 @endsection
