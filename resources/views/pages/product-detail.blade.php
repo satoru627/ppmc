@@ -66,7 +66,7 @@
 
                         <div class="mt-5 grid gap-3">
                             @if($usesChariow)
-                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">Acheter maintenant</a>
+                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy" data-purchase-popup-trigger>Acheter maintenant</a>
                             @else
                                 <span class="rounded-full bg-slate-200 px-6 py-4 text-center text-sm font-black text-slate-500">Produit bientot disponible</span>
                             @endif
@@ -106,4 +106,107 @@
             </div>
         </div>
     </section>
+
+    @if($usesChariow)
+        <div class="fixed inset-0 z-50 hidden items-center justify-center bg-navy/70 px-4 py-6 backdrop-blur-sm" data-purchase-popup aria-hidden="true">
+            <div class="absolute inset-0" data-purchase-popup-close></div>
+
+            <div class="relative w-full max-w-lg overflow-hidden rounded-[1.5rem] bg-white shadow-premium sm:rounded-[2rem]" role="dialog" aria-modal="true" aria-labelledby="purchase-popup-title">
+                <span class="block h-1.5 bg-royal"></span>
+
+                <div class="p-5 sm:p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-xs font-black uppercase tracking-[0.16em] text-royal">Suivi apres paiement</p>
+                            <h2 id="purchase-popup-title" class="mt-2 text-2xl font-black leading-tight text-navy">Vos informations</h2>
+                            <p class="mt-2 text-sm font-semibold leading-6 text-slate-500">
+                                Optionnel: laissez vos coordonnees pour faciliter le suivi apres paiement.
+                            </p>
+                        </div>
+
+                        <button type="button" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-mist text-navy transition hover:bg-royal hover:text-white" data-purchase-popup-close aria-label="Fermer">
+                            <x-icon name="x" class="h-4 w-4" />
+                        </button>
+                    </div>
+
+                    <form class="mt-5 grid gap-4" data-purchase-popup-form>
+                        <label class="grid gap-2 text-sm font-black text-navy">
+                            Nom complet
+                            <input type="text" name="name" autocomplete="name" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="Votre nom">
+                        </label>
+
+                        <label class="grid gap-2 text-sm font-black text-navy">
+                            Email
+                            <input type="email" name="email" autocomplete="email" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="votre@email.com">
+                        </label>
+
+                        <label class="grid gap-2 text-sm font-black text-navy">
+                            Telephone
+                            <input type="tel" name="phone" autocomplete="tel" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="+237...">
+                        </label>
+
+                        <div class="mt-2 grid gap-3 sm:grid-cols-2">
+                            <button type="submit" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">Continuer vers le paiement</button>
+                            <a href="{{ route('products.buy', $product) }}" class="rounded-full border border-slate-200 px-6 py-4 text-center text-sm font-black text-navy transition hover:border-royal hover:text-royal" data-purchase-popup-skip>Passer cette etape</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @push('scripts')
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const trigger = document.querySelector('[data-purchase-popup-trigger]');
+                    const popup = document.querySelector('[data-purchase-popup]');
+                    const form = document.querySelector('[data-purchase-popup-form]');
+                    const skip = document.querySelector('[data-purchase-popup-skip]');
+                    const closeButtons = document.querySelectorAll('[data-purchase-popup-close]');
+
+                    if (!trigger || !popup) return;
+
+                    const buyUrl = trigger.getAttribute('href');
+
+                    const openPopup = () => {
+                        popup.classList.remove('hidden');
+                        popup.classList.add('flex');
+                        popup.setAttribute('aria-hidden', 'false');
+                    };
+
+                    const closePopup = () => {
+                        popup.classList.add('hidden');
+                        popup.classList.remove('flex');
+                        popup.setAttribute('aria-hidden', 'true');
+                    };
+
+                    const goToPayment = () => {
+                        window.location.href = buyUrl;
+                    };
+
+                    trigger.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        openPopup();
+                    });
+
+                    form?.addEventListener('submit', (event) => {
+                        event.preventDefault();
+                        goToPayment();
+                    });
+
+                    skip?.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        goToPayment();
+                    });
+
+                    closeButtons.forEach((button) => {
+                        button.addEventListener('click', closePopup);
+                    });
+
+                    document.addEventListener('keydown', (event) => {
+                        if (event.key === 'Escape') closePopup();
+                    });
+                });
+            </script>
+        @endpush
+    @endif
 @endsection
