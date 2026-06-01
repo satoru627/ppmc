@@ -140,11 +140,6 @@
                             <input type="email" name="email" autocomplete="email" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="votre@email.com">
                         </label>
 
-                        <label class="grid gap-2 text-sm font-black text-navy">
-                            Telephone
-                            <input type="tel" name="phone" autocomplete="tel" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="+237...">
-                        </label>
-
                         <div class="mt-2 grid gap-3 sm:grid-cols-2">
                             <button type="submit" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">Continuer vers le paiement</button>
                             <a href="{{ route('products.buy', $product) }}" class="rounded-full border border-slate-200 px-6 py-4 text-center text-sm font-black text-navy transition hover:border-royal hover:text-royal" data-purchase-popup-skip>Passer cette etape</a>
