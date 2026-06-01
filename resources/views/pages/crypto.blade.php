@@ -122,7 +122,9 @@
             @unless($selectedPlatform)
                 <div class="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-5">
                     @foreach($platforms as $slug => $platform)
-                        @php($style = $platformStyles[$slug] ?? $platformStyles['tiktok'])
+                        @php
+                            $style = $platformStyles[$slug] ?? $platformStyles['tiktok'];
+                        @endphp
                         <a href="{{ route('service.platform', $slug) }}" class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem]">
                             <span class="block h-1.5 {{ $style['accent'] }}"></span>
                             <div class="p-4 sm:p-6">
