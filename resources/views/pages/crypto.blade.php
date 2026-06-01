@@ -123,16 +123,16 @@
             @else
                 <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div class="max-w-3xl">
-                        <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Services</p>
+                        <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Comptes sociaux</p>
                         <h1 class="mt-2 text-2xl font-mono text-blue-700 font-extrabold leading-tight text-navy sm:text-5xl">
-                            Services
+                            Choisissez votre plateforme
                         </h1>
                         <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
-                            Choisissez une plateforme pour consulter les comptes disponibles.
+                            TikTok, Facebook ou YouTube: selectionnez une plateforme pour voir les comptes disponibles.
                         </p>
                     </div>
                     <span class="w-fit rounded-full bg-white px-5 py-3 text-xs font-black text-royal shadow-soft sm:text-sm">
-                        {{ count($platforms) }} plateformes
+                        {{ count($platforms) }} plateformes disponibles
                     </span>
                 </div>
             @endif
