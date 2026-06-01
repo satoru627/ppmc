@@ -12,11 +12,11 @@
         $typeLabel = $isFormation ? 'Formation' : 'Service';
         $usesChariow = $product->hasChariowCheckout();
         $benefits = $isFormation
-            ? [$usesChariow ? 'Acces gere sur Chariow' : 'Lien Chariow en preparation', 'Support pendant la mise en pratique', 'Facture PDF disponible', 'Telechargement securise']
-            : [$usesChariow ? 'Commande geree sur Chariow' : 'Lien Chariow en preparation', 'Transfert accompagne', 'Support apres achat', 'Facture PDF disponible'];
+            ? [$usesChariow ? 'Acces gere sur Chariow' : 'Lien Chariow en preparation', 'Contenu verifie', 'Acces protege', 'Details disponibles avant achat']
+            : [$usesChariow ? 'Achat gere sur Chariow' : 'Lien Chariow en preparation', 'Offre verifiee', 'Transfert accompagne', 'Details disponibles avant achat'];
         $steps = $usesChariow
             ? ['Redirection vers Chariow', 'Paiement dans la boutique', $isFormation ? 'Acces a la formation sur Chariow' : 'Traitement par Chariow']
-            : ['Lien Chariow en preparation', 'Achat bientot disponible', 'Support disponible'];
+            : ['Lien Chariow en preparation', 'Achat bientot disponible', 'Details visibles sur cette page'];
     @endphp
 
     <section class="bg-mist px-4 py-10 sm:px-6 sm:py-16 lg:px-8">
@@ -93,9 +93,9 @@
                 </section>
 
                 <section class="rounded-[1.75rem] bg-white p-5 shadow-soft sm:rounded-[2rem] sm:p-8">
-                    <p class="text-sm font-black uppercase tracking-[0.16em] text-royal">Confiance</p>
+                    <p class="text-sm font-black uppercase tracking-[0.16em] text-royal">Achat</p>
                     <div class="mt-5 grid gap-3">
-                        @foreach(['Paiement securise', 'Support client', 'Facture PDF', 'Acces protege'] as $item)
+                        @foreach(['Paiement securise', 'Offre verifiee', 'Acces protege', 'Redirection Chariow'] as $item)
                             <div class="flex items-center gap-3 rounded-2xl bg-mist p-4">
                                 <x-icon name="shield" class="h-5 w-5 text-royal" />
                                 <span class="text-sm font-black text-navy">{{ $item }}</span>
