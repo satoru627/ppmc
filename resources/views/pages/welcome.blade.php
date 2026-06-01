@@ -58,7 +58,7 @@
                         <a href="{{ route('home') }}" class="border-b-2 border-[#E3A72F] pb-1 text-sm font-black text-white">Accueil</a>
                         <a href="{{ route('catalog') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Catalogue</a>
                         <a href="{{ route('training') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Formations</a>
-                        <a href="{{ route('service') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Services</a>
+                        <a href="{{ route('service') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">comptes sociaux</a>
                         <a href="{{ route('about') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">A propos</a>
                         <a href="#avis" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Avis</a>
                         <a href="#faq" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">FAQ</a>
