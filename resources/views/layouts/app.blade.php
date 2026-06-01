@@ -352,6 +352,12 @@
                     { name: 'Junior', city: 'Bafoussam', product: 'Page Facebook monetisee', time: 'il y a 8 minutes' },
                     { name: 'Ariane', city: 'Garoua', product: 'Chaine YouTube monetisee', time: 'il y a 11 minutes' },
                     { name: 'Marc', city: 'Kribi', product: 'TikTok Monetisation Blueprint', time: 'il y a 14 minutes' },
+                    { name: 'silvy', city: 'paris', product: 'TikTok Monetisation', time: 'il y a 1 minutes' },
+                    { name: 'Alice', city: 'Lyon', product: 'page Facebook monetisee', time: 'il y a 4 minutes' },
+                    { name: 'Bob', city: 'brazaville', product: 'TikTok Monetisation Blueprint', time: 'il y a 14 minutes' },
+                    { name: 'robert', city: 'dakar', product: 'chaines YouTube', time: 'il y a 1h' },
+                    { name: 'Jean', city: 'ouagadougou', product: 'chaine YouTube', time: 'il y a 6 minutes' },
+                    { name: 'romeo', city: 'abidjan', product: 'TikTok Monetisation Blueprint', time: 'il y a 9 minutes' },
                 ];
                 let index = 0;
 
