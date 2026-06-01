@@ -233,6 +233,29 @@
         </div>
     </footer>
     @endunless
+
+    @if(config('app.live_purchase_demo'))
+        <div class="pointer-events-none fixed bottom-4 left-4 z-40 hidden w-[calc(100vw-2rem)] max-w-sm translate-y-4 rounded-2xl border border-slate-200 bg-white p-4 opacity-0 shadow-premium transition duration-500 sm:bottom-6 sm:left-6" data-live-purchase-demo aria-live="polite">
+            <div class="flex items-start gap-3">
+                <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-emerald-50 text-sm font-black text-emerald-700" data-live-purchase-initials>JD</span>
+                <div class="min-w-0 flex-1">
+                    <div class="flex items-center gap-2">
+                        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                        <p class="text-[10px] font-black uppercase tracking-[0.14em] text-emerald-700">Achat recent</p>
+                    </div>
+                    <p class="mt-1 text-sm font-black leading-5 text-navy">
+                        <span data-live-purchase-name>Jean</span> de <span data-live-purchase-city>Douala</span> vient d'acheter
+                    </p>
+                    <p class="mt-1 truncate text-xs font-bold text-slate-500" data-live-purchase-product>Formation TikTok</p>
+                    <p class="mt-2 text-[11px] font-bold text-slate-400" data-live-purchase-time>il y a 2 minutes</p>
+                </div>
+                <button type="button" class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-mist text-slate-500 transition hover:bg-royal hover:text-white" data-live-purchase-close aria-label="Fermer la notification">
+                    <x-icon name="x" class="h-3.5 w-3.5" />
+                </button>
+            </div>
+        </div>
+    @endif
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const setLoading = (element) => {
@@ -320,6 +343,54 @@
                     }
                 }, 1000);
             });
+
+            const livePurchase = document.querySelector('[data-live-purchase-demo]');
+            if (livePurchase && window.localStorage?.getItem('ppmc_live_purchase_demo_closed') !== '1') {
+                const events = [
+                    { name: 'Kevin', city: 'Douala', product: 'Compte TikTok monetise', time: 'il y a 2 minutes' },
+                    { name: 'Sarah', city: 'Yaounde', product: 'Masterclass Trading Crypto', time: 'il y a 5 minutes' },
+                    { name: 'Junior', city: 'Bafoussam', product: 'Page Facebook monetisee', time: 'il y a 8 minutes' },
+                    { name: 'Ariane', city: 'Garoua', product: 'Chaine YouTube monetisee', time: 'il y a 11 minutes' },
+                    { name: 'Marc', city: 'Kribi', product: 'TikTok Monetisation Blueprint', time: 'il y a 14 minutes' },
+                ];
+                let index = 0;
+
+                const initials = livePurchase.querySelector('[data-live-purchase-initials]');
+                const name = livePurchase.querySelector('[data-live-purchase-name]');
+                const city = livePurchase.querySelector('[data-live-purchase-city]');
+                const product = livePurchase.querySelector('[data-live-purchase-product]');
+                const time = livePurchase.querySelector('[data-live-purchase-time]');
+                const close = livePurchase.querySelector('[data-live-purchase-close]');
+
+                const showEvent = () => {
+                    const item = events[index % events.length];
+                    initials.textContent = item.name.slice(0, 1) + item.city.slice(0, 1);
+                    name.textContent = item.name;
+                    city.textContent = item.city;
+                    product.textContent = item.product;
+                    time.textContent = item.time;
+
+                    livePurchase.classList.remove('hidden', 'pointer-events-none');
+                    window.requestAnimationFrame(() => {
+                        livePurchase.classList.remove('translate-y-4', 'opacity-0');
+                    });
+
+                    window.setTimeout(() => {
+                        livePurchase.classList.add('pointer-events-none', 'translate-y-4', 'opacity-0');
+                    }, 6200);
+
+                    index += 1;
+                };
+
+                const interval = window.setInterval(showEvent, 9800);
+                window.setTimeout(showEvent, 1600);
+
+                close?.addEventListener('click', () => {
+                    livePurchase.classList.add('hidden', 'pointer-events-none');
+                    window.localStorage?.setItem('ppmc_live_purchase_demo_closed', '1');
+                    window.clearInterval(interval);
+                });
+            }
 
             const toggle = document.querySelector('[data-nav-toggle]');
             const menu = document.querySelector('[data-mobile-menu]');
