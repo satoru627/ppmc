@@ -284,6 +284,43 @@
                 });
             });
 
+            document.querySelectorAll('[data-countdown]').forEach((element) => {
+                const deadline = new Date(element.dataset.countdown || '').getTime();
+                if (Number.isNaN(deadline)) return;
+
+                const days = element.querySelector('[data-countdown-days]');
+                const hours = element.querySelector('[data-countdown-hours]');
+                const minutes = element.querySelector('[data-countdown-minutes]');
+                const seconds = element.querySelector('[data-countdown-seconds]');
+                const pad = (value) => String(value).padStart(2, '0');
+
+                const updateCountdown = () => {
+                    const diff = deadline - Date.now();
+
+                    if (diff <= 0) {
+                        element.textContent = 'Promotion terminee';
+                        window.setTimeout(() => window.location.reload(), 1200);
+                        return false;
+                    }
+
+                    const totalSeconds = Math.floor(diff / 1000);
+                    days.textContent = Math.floor(totalSeconds / 86400);
+                    hours.textContent = pad(Math.floor((totalSeconds % 86400) / 3600));
+                    minutes.textContent = pad(Math.floor((totalSeconds % 3600) / 60));
+                    seconds.textContent = pad(totalSeconds % 60);
+
+                    return true;
+                };
+
+                if (!updateCountdown()) return;
+
+                const interval = window.setInterval(() => {
+                    if (!updateCountdown()) {
+                        window.clearInterval(interval);
+                    }
+                }, 1000);
+            });
+
             const toggle = document.querySelector('[data-nav-toggle]');
             const menu = document.querySelector('[data-mobile-menu]');
             if (!toggle || !menu) return;

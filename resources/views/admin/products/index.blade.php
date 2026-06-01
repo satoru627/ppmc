@@ -24,9 +24,22 @@
                             @else
                                 <span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-black text-amber-700">Lien Chariow manquant</span>
                             @endif
+                            @if($product->is_on_promotion)
+                                <span class="rounded-full bg-rose-50 px-3 py-1 text-xs font-black text-rose-700">Promo active</span>
+                            @elseif($product->is_promoted)
+                                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-black text-slate-500">Promo expiree</span>
+                            @endif
                         </div>
                         <h2 class="mt-3 truncate text-lg font-black">{{ $product->title }}</h2>
-                        <p class="mt-1 text-sm font-black text-royal">{{ $product->formatted_price }}</p>
+                        <div class="mt-1 flex flex-wrap items-center gap-2">
+                            <p class="text-sm font-black text-royal">{{ $product->formatted_current_price }}</p>
+                            @if($product->is_on_promotion)
+                                <p class="text-xs font-black text-slate-400 line-through">{{ $product->formatted_price }}</p>
+                            @endif
+                        </div>
+                        @if($product->is_on_promotion)
+                            <p class="mt-1 text-xs font-bold text-rose-600">Fin: {{ $product->promotion_ends_at->format('d/m/Y H:i') }}</p>
+                        @endif
                     </div>
                 </div>
                 <div class="mt-5 flex flex-wrap gap-2">

@@ -17,6 +17,9 @@ class Product extends Model
         'description',
         'type',
         'price',
+        'is_promoted',
+        'promotion_price',
+        'promotion_ends_at',
         'chariow_checkout_url',
         'file_path',
         'image',
@@ -27,6 +30,9 @@ class Product extends Model
     {
         return [
             'price' => 'integer',
+            'is_promoted' => 'boolean',
+            'promotion_price' => 'integer',
+            'promotion_ends_at' => 'datetime',
             'is_active' => 'boolean',
         ];
     }
@@ -61,6 +67,42 @@ class Product extends Model
     public function getFormattedPriceAttribute(): string
     {
         return number_format($this->price, 0, ',', ' ') . ' FCFA';
+    }
+
+    /**
+     * Indique si la promotion est active maintenant.
+     */
+    public function isPromotionActive(): bool
+    {
+        return $this->is_promoted
+            && filled($this->promotion_price)
+            && $this->promotion_price > 0
+            && $this->promotion_price < $this->price
+            && $this->promotion_ends_at?->isFuture();
+    }
+
+    /**
+     * Attribut pratique pour les vues Blade.
+     */
+    public function getIsOnPromotionAttribute(): bool
+    {
+        return $this->isPromotionActive();
+    }
+
+    /**
+     * Prix actuellement affiche au visiteur.
+     */
+    public function getCurrentPriceAttribute(): int
+    {
+        return $this->isPromotionActive() ? (int) $this->promotion_price : (int) $this->price;
+    }
+
+    /**
+     * Prix actuellement affiche au visiteur, format FCFA.
+     */
+    public function getFormattedCurrentPriceAttribute(): string
+    {
+        return number_format($this->current_price, 0, ',', ' ') . ' FCFA';
     }
 
     /**

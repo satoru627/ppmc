@@ -72,12 +72,15 @@
                             <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="h-full w-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent"></div>
                             <span class="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-royal sm:left-4 sm:top-4 sm:px-3 sm:text-xs">{{ ucfirst($product->type) }}</span>
+                            @if($product->is_on_promotion)
+                                <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-2.5 py-1 text-[10px] font-black text-white shadow-premium sm:right-4 sm:top-4 sm:px-3 sm:text-xs">Promo</span>
+                            @endif
                         </div>
                         <div class="p-4 sm:p-6">
                             <h2 class="min-h-10 text-sm font-black leading-tight text-navy sm:text-lg">{{ $product->title }}</h2>
                             <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500 sm:mt-3 sm:text-sm sm:leading-7">{{ $product->description }}</p>
                             <div class="mt-4 flex flex-col gap-2 sm:mt-6 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-                                <span class="text-xs font-black text-navy sm:text-lg">{{ $product->formatted_price }}</span>
+                                <x-product-price :product="$product" />
                                 <a href="{{ route('products.show', $product) }}" class="rounded-full bg-navy px-4 py-2 text-center text-xs font-black text-white shadow-premium sm:px-5 sm:py-2.5 sm:text-sm">Details</a>
                             </div>
                         </div>

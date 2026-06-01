@@ -95,6 +95,12 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $data['is_active'] = $request->boolean('is_active');
+        $data['is_promoted'] = $request->boolean('is_promoted');
+
+        if (! $data['is_promoted']) {
+            $data['promotion_price'] = null;
+            $data['promotion_ends_at'] = null;
+        }
 
         unset($data['product_file'], $data['image']);
 

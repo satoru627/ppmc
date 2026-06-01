@@ -31,6 +31,9 @@
                     <div class="relative min-h-[260px] overflow-hidden bg-navy sm:min-h-[460px]">
                         <img src="{{ $image }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/25 to-transparent"></div>
+                        @if($product->is_on_promotion)
+                            <span class="absolute right-5 top-5 rounded-full bg-rose-600 px-4 py-2 text-xs font-black uppercase tracking-[0.14em] text-white shadow-premium">Promotion</span>
+                        @endif
                         <div class="absolute bottom-0 left-0 right-0 p-5 text-white sm:p-8">
                             <span class="inline-flex rounded-full bg-gold px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-navy">{{ $typeLabel }}</span>
                             <h1 class="mt-4 max-w-4xl text-3xl font-black leading-tight sm:text-6xl">{{ $product->title }}</h1>
@@ -57,7 +60,7 @@
 
                         <div class="mt-6 rounded-3xl bg-mist p-5">
                             <p class="text-xs font-black uppercase tracking-[0.14em] text-slate-400">Prix</p>
-                            <p class="mt-2 text-3xl font-black text-navy sm:text-4xl">{{ $product->formatted_price }}</p>
+                            <x-product-price :product="$product" variant="large" class="mt-2" />
                             <p class="mt-2 text-xs font-bold text-slate-500">{{ $usesChariow ? 'Paiement et acces finalises dans notre boutique Chariow.' : 'Ce produit sera disponible des que le lien Chariow sera configure.' }}</p>
                         </div>
 

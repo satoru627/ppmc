@@ -141,7 +141,12 @@
                         <article class="premium-card rounded-[1.5rem] p-4 transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem] sm:p-7">
                             <div class="mb-6 flex items-start justify-between gap-3">
                                 <span class="grid h-12 w-12 shrink-0 place-items-center"><x-social-logo :name="$currentPlatform['logo']" class="h-9 w-9" /></span>
-                                <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">Disponible</span>
+                                <div class="flex flex-col items-end gap-2">
+                                    <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">Disponible</span>
+                                    @if($product->is_on_promotion)
+                                        <span class="rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                                    @endif
+                                </div>
                             </div>
                             <h3 class="min-h-10 text-sm font-black leading-tight text-navy sm:text-2xl">{{ $product->title }}</h3>
                             <p class="mt-3 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $product->description }}</p>
@@ -150,7 +155,7 @@
                                 <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Plateforme</p><p class="mt-1 text-xs font-black text-navy">{{ $currentPlatform['name'] }}</p></div>
                             </div>
                             <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                <span class="text-xs font-black text-navy sm:text-lg">{{ $product->formatted_price }}</span>
+                                <x-product-price :product="$product" />
                                 <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-4 py-2 text-center text-xs font-black text-white shadow-glow">Acheter</a>
                             </div>
                         </article>
@@ -160,6 +165,9 @@
                                 <div class="relative flex min-h-[150px] items-center justify-center overflow-hidden bg-navy sm:min-h-[220px]">
                                     <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover">
                                     <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
+                                    @if($linkedProduct?->is_on_promotion)
+                                        <span class="absolute right-4 top-4 rounded-full bg-rose-600 px-3 py-1 text-xs font-black text-white shadow-premium">Promo</span>
+                                    @endif
                                     <span class="relative grid h-14 w-14 place-items-center drop-shadow-[0_8px_20px_rgba(0,0,0,0.45)]"><x-social-logo :name="$logo" class="h-10 w-10" /></span>
                                     <h3 class="absolute bottom-5 left-5 right-5 text-base font-black leading-tight text-white sm:text-2xl">{{ $title }}</h3>
                                 </div>
@@ -170,7 +178,11 @@
                                         <div class="rounded-2xl bg-mist p-3"><p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Statut</p><p class="mt-1 text-xs font-black text-navy">{{ $status }}</p></div>
                                     </div>
                                     <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                                        <span class="text-xs font-black text-navy sm:text-lg">{{ $linkedProduct?->formatted_price ?? $price }}</span>
+                                        @if($linkedProduct)
+                                            <x-product-price :product="$linkedProduct" />
+                                        @else
+                                            <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
+                                        @endif
                                         <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-navy px-4 py-2 text-center text-xs font-black text-white shadow-premium">Voir detail</a>
                                     </div>
                                 </div>

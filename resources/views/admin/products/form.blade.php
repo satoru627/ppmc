@@ -44,6 +44,28 @@
                 <span class="text-xs font-bold text-slate-500">Obligatoire pour vendre ce produit. Si ce champ est vide, le bouton public affiche Produit bientot disponible.</span>
             </label>
 
+            <section class="rounded-[1.5rem] border border-amber-100 bg-amber-50/70 p-5">
+                <label class="flex items-center gap-3 text-sm font-black text-navy">
+                    <input type="checkbox" name="is_promoted" value="1" @checked(old('is_promoted', $product->is_promoted ?? false)) class="h-4 w-4 rounded text-royal">
+                    Produit en promotion
+                </label>
+
+                <div class="mt-4 grid gap-5 sm:grid-cols-2">
+                    <label class="grid gap-2 text-sm font-bold">
+                        Prix promotionnel en FCFA
+                        <input name="promotion_price" type="number" min="500" value="{{ old('promotion_price', $product->promotion_price) }}" class="rounded-2xl border border-amber-200 bg-white px-4 py-4 outline-none focus:border-royal">
+                    </label>
+                    <label class="grid gap-2 text-sm font-bold">
+                        Fin de promotion
+                        <input name="promotion_ends_at" type="datetime-local" value="{{ old('promotion_ends_at', $product->promotion_ends_at?->format('Y-m-d\TH:i')) }}" class="rounded-2xl border border-amber-200 bg-white px-4 py-4 outline-none focus:border-royal">
+                    </label>
+                </div>
+
+                <p class="mt-4 text-xs font-bold leading-5 text-amber-800">
+                    Comme il n'y a pas de lien Chariow promotionnel, verifiez que le prix configure dans Chariow correspond au prix promotionnel pendant la duree de l'offre.
+                </p>
+            </section>
+
             <div class="grid gap-5 sm:grid-cols-2">
                 <label class="grid gap-2 text-sm font-bold">
                     Fichier prive du produit
