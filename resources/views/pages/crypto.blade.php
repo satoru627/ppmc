@@ -28,6 +28,7 @@
                 'label' => 'YouTube',
             ],
         ];
+        $currentStyle = $selectedPlatform ? ($platformStyles[$selectedPlatform] ?? $platformStyles['tiktok']) : null;
         $platformTags = [
             'tiktok' => ['Monetises', 'Starter', 'Niches'],
             'facebook' => ['Pages', 'Reels', 'Verified'],
@@ -82,24 +83,59 @@
 
     <section class="bg-mist px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div class="mx-auto max-w-7xl">
-            <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-                <div class="max-w-3xl">
-                    <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Services</p>
-                    <h1 class="mt-2 text-2xl font-mono text-blue-700 font-extrabold leading-tight text-navy sm:text-5xl">
-                        {{ $currentPlatform ? $currentPlatform['headline'] : 'Services' }}
-                    </h1>
-                    <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
-                        {{ $currentPlatform ? $currentPlatform['description'] : 'Choisissez une plateforme pour consulter les comptes disponibles.' }}
-                    </p>
+            @if($selectedPlatform)
+                <div class="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-premium sm:rounded-[2rem]">
+                    <span class="block h-1.5 {{ $currentStyle['accent'] }}"></span>
+                    <div class="grid gap-5 p-5 sm:p-6 lg:grid-cols-[1fr_auto] lg:items-center">
+                        <div class="flex flex-col gap-4 sm:flex-row sm:items-start">
+                            <span class="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border {{ $currentStyle['soft'] }} sm:h-16 sm:w-16">
+                                <x-social-logo :name="$currentPlatform['logo']" class="h-9 w-9 sm:h-10 sm:w-10" />
+                            </span>
+
+                            <div>
+                                <p class="text-[11px] font-black uppercase tracking-[0.18em] text-slate-400 sm:text-xs">
+                                    Services / {{ $currentPlatform['name'] }}
+                                </p>
+                                <h1 class="mt-1 text-2xl font-black leading-tight text-navy sm:text-4xl">
+                                    {{ $currentPlatform['headline'] }}
+                                </h1>
+                                <p class="mt-2 max-w-3xl text-sm font-semibold leading-7 text-slate-500">
+                                    {{ $currentPlatform['description'] }}
+                                </p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    @foreach($platformTags[$selectedPlatform] ?? [] as $tag)
+                                        <span class="rounded-full border px-3 py-1 text-[10px] font-black {{ $currentStyle['soft'] }}">{{ $tag }}</span>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2 lg:flex-col lg:items-end">
+                            <span class="w-fit rounded-full bg-mist px-5 py-3 text-xs font-black text-royal sm:text-sm">
+                                {{ $serviceCount }} service{{ $serviceCount > 1 ? 's' : '' }}
+                            </span>
+                            <span class="rounded-full border px-4 py-2 text-[10px] font-black {{ $currentStyle['soft'] }}">
+                                {{ $currentPlatform['metric'] }}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <span class="w-fit rounded-full bg-white px-5 py-3 text-xs font-black text-royal shadow-soft sm:text-sm">
-                    @if($selectedPlatform)
-                        {{ $serviceCount }} service{{ $serviceCount > 1 ? 's' : '' }}
-                    @else
+            @else
+                <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+                    <div class="max-w-3xl">
+                        <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Services</p>
+                        <h1 class="mt-2 text-2xl font-mono text-blue-700 font-extrabold leading-tight text-navy sm:text-5xl">
+                            Services
+                        </h1>
+                        <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
+                            Choisissez une plateforme pour consulter les comptes disponibles.
+                        </p>
+                    </div>
+                    <span class="w-fit rounded-full bg-white px-5 py-3 text-xs font-black text-royal shadow-soft sm:text-sm">
                         {{ count($platforms) }} plateformes
-                    @endif
-                </span>
-            </div>
+                    </span>
+                </div>
+            @endif
 
             @if($selectedPlatform)
                 <div class="mt-6 grid gap-3 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-premium sm:rounded-[2rem] sm:p-5 lg:grid-cols-[1fr_auto] lg:items-center">
