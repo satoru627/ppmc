@@ -20,7 +20,7 @@
                         <p class="text-xs font-black uppercase tracking-[0.18em] text-gold">Administration</p>
                         <h1 class="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">Connexion admin</h1>
                         <p class="mx-auto mt-2 max-w-sm text-sm font-semibold leading-6 text-white/65 lg:mx-0">
-                            Acces reserve a l equipe PPMC pour gerer les produits, commandes et utilisateurs.
+                            Acces reserve a l equipe PPMC pour gerer les produits et les utilisateurs.
                         </p>
                     </div>
 
@@ -71,12 +71,11 @@
                             Back-office PPMC
                         </p>
                         <h2 class="mt-5 max-w-md text-3xl font-black leading-tight tracking-tight xl:text-4xl">
-                            Gestion interne des ventes et ressources digitales.
+                            Gestion interne des produits et utilisateurs.
                         </h2>
                         <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-black text-white/85">
                             <span>Produits</span>
-                            <span>Commandes</span>
-                            <span>Support</span>
+                            <span>Utilisateurs</span>
                         </div>
                     </div>
                 </aside>

@@ -72,7 +72,7 @@ class ProductController extends Controller
         if ($product->orders()->exists()) {
             $product->update(['is_active' => false]);
 
-            return back()->with('success', 'Produit desactive car il possede deja des commandes.');
+            return back()->with('success', 'Produit desactive car il possede deja des donnees liees.');
         }
 
         if ($product->file_path) {

@@ -39,7 +39,7 @@ class LoginController extends Controller
             RateLimiter::hit($this->throttleKey($request));
 
             throw ValidationException::withMessages([
-                'email' => 'Votre compte est bloque. Contactez le support.',
+                'email' => 'Votre compte est bloque. Contactez l administrateur.',
             ]);
         }
 
@@ -63,7 +63,7 @@ class LoginController extends Controller
         RateLimiter::clear($this->throttleKey($request));
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard'));
+        return redirect()->intended(route('admin.products.index'));
     }
 
     /**

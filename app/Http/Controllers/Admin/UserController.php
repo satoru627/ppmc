@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $users = User::withCount(['orders', 'supportTickets'])
+        $users = User::query()
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = '%' . $request->string('search')->toString() . '%';
 
@@ -57,7 +57,7 @@ class UserController extends Controller
 
         if ($user->orders()->exists() || $user->supportTickets()->exists()) {
             return back()->withErrors([
-                'user' => 'Cet utilisateur possede un historique. Bloquez le compte au lieu de le supprimer.',
+                'user' => 'Cet utilisateur possede des donnees liees. Bloquez le compte au lieu de le supprimer.',
             ]);
         }
 

@@ -35,18 +35,14 @@
 <body class="bg-mist font-sans text-navy antialiased">
     <div class="min-h-screen lg:grid lg:grid-cols-[290px_1fr]">
         <aside class="sticky top-0 z-50 bg-navy px-3 py-3 text-white lg:static lg:min-h-screen lg:px-5 lg:py-6">
-            <a href="{{ route('admin.dashboard') }}" class="flex min-w-0 items-center gap-2 pr-20 lg:gap-3 lg:pr-0">
+            <a href="{{ route('admin.products.index') }}" class="flex min-w-0 items-center gap-2 pr-20 lg:gap-3 lg:pr-0">
                 <img src="{{ asset('/assets/logo.png') }}" alt="PPMC" class="h-10 w-auto max-w-[4.75rem] shrink-0 rounded-2xl object-contain shadow-gold lg:h-11 lg:max-w-[5.25rem]">
                 <span class="truncate text-sm font-black lg:text-base">PPMC</span>
             </a>
             <nav class="mt-3 flex gap-2 overflow-x-auto pb-1 text-xs font-black lg:mt-10 lg:grid lg:gap-2 lg:overflow-visible lg:pb-0 lg:text-sm">
                 @foreach([
-                    [route('admin.dashboard'), 'Tableau de bord'],
                     [route('admin.products.index'), 'Produits'],
-                    [route('admin.orders.index'), 'Commandes'],
-                    [route('admin.support.index'), 'Support'],
                     [route('admin.users.index'), 'Utilisateurs'],
-                    [route('admin.stats'), 'Statistiques'],
                     [route('home'), 'Retour site'],
                 ] as [$href, $label])
                     <a class="shrink-0 rounded-full bg-white/5 px-3 py-2 text-white/70 transition hover:bg-white/10 hover:text-gold lg:rounded-2xl lg:bg-transparent lg:px-4 lg:py-3" href="{{ $href }}">{{ $label }}</a>

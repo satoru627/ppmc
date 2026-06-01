@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
-use App\Http\Controllers\Admin\SupportTicketController as AdminSupportTicketController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DownloadController;
@@ -59,22 +56,12 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth', AdminMiddleware::class])
     ->group(function (): void {
-        Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/stats', [AdminDashboardController::class, 'stats'])->name('stats');
+        Route::redirect('/', '/admin/products')->name('home');
+        Route::redirect('/dashboard', '/admin/products');
 
         Route::resource('products', AdminProductController::class)->except(['show']);
-
-        Route::get('/orders/chariow-sale', [AdminOrderController::class, 'createChariowSale'])->name('orders.chariow.create');
-        Route::post('/orders/chariow-sale', [AdminOrderController::class, 'storeChariowSale'])->name('orders.chariow.store');
-        Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
-        Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.status');
-        Route::post('/orders/{order}/send', [AdminOrderController::class, 'send'])->name('orders.send');
 
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::patch('/users/{user}/block', [AdminUserController::class, 'block'])->name('users.block');
         Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
-
-        Route::get('/support', [AdminSupportTicketController::class, 'index'])->name('support.index');
-        Route::get('/support/{ticket}', [AdminSupportTicketController::class, 'show'])->name('support.show');
-        Route::patch('/support/{ticket}/status', [AdminSupportTicketController::class, 'updateStatus'])->name('support.status');
     });

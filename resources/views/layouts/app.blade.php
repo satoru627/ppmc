@@ -137,7 +137,7 @@
                     <a href="{{ route('login') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0" data-loading-link>Login</a>
                 @else
                     @if(auth()->user()->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0">Dashboard</a>
+                    <a href="{{ route('admin.products.index') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0">Admin</a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button class="text-sm font-black transition hover:text-gold {{ $darkNav ? 'text-white/75' : 'text-slate-500' }}">Sortir</button>
@@ -176,7 +176,7 @@
 
             @auth
                 @if(auth()->user()->isAdmin())
-                <a href="{{ route('admin.dashboard') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-nav-link>Dashboard</a>
+                <a href="{{ route('admin.products.index') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-nav-link>Admin</a>
                 <form action="{{ route('logout') }}" method="POST" class="mt-2">
                     @csrf
                     <button type="submit" class="block w-full rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white">Deconnexion</button>
