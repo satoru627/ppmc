@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,7 +13,7 @@ class DownloadController extends Controller
     /**
      * Telecharge un fichier prive avec URL signee temporaire.
      */
-    public function __invoke(Request $request, string $token): StreamedResponse
+    public function __invoke(string $token): StreamedResponse
     {
         try {
             $orderId = Crypt::decryptString($token);
@@ -24,7 +23,6 @@ class DownloadController extends Controller
 
         $order = Order::with('product')
             ->whereKey($orderId)
-            ->where('user_id', $request->user()->id)
             ->where('status', Order::STATUS_PAID)
             ->firstOrFail();
 

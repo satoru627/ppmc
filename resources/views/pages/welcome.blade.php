@@ -67,14 +67,13 @@
                     <div class="hidden items-center gap-5 lg:flex">
                         <span class="grid h-9 w-9 place-items-center rounded-full bg-white/5 text-white/80"><x-icon name="clock" class="h-4 w-4" /></span>
                         @auth
-                            <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('client.home') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5">Mon espace</a>
+                            @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5">Dashboard</a>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="text-sm font-black text-white/85 transition hover:text-[#E3A72F]">Deconnexion</button>
                             </form>
-                        @else
-                            <a href="{{ route('login') }}" class="text-sm font-black text-white/85 transition hover:text-[#E3A72F]" data-loading-link>Se connecter</a>
-                            <a href="{{ route('register') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5" data-loading-link>S'inscrire</a>
+                            @endif
                         @endauth
                     </div>
 
@@ -104,14 +103,13 @@
                     <a href="{{ route('about') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-welcome-nav-link>A propos</a>
                     <a href="#avis" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-welcome-nav-link>Avis</a>
                     @auth
-                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('client.home') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-welcome-nav-link>Mon espace</a>
+                        @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-welcome-nav-link>Dashboard</a>
                         <form action="{{ route('logout') }}" method="POST" class="mt-2">
                             @csrf
                             <button type="submit" class="block w-full rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white">Deconnexion</button>
                         </form>
-                    @else
-                        <a href="{{ route('login') }}" class="mt-4 block rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white" data-welcome-nav-link data-loading-link>Connexion</a>
-                        <a href="{{ route('register') }}" class="mt-2 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-welcome-nav-link data-loading-link>Inscription</a>
+                        @endif
                     @endauth
                 </aside>
             </div>
@@ -286,7 +284,7 @@
                         @endforeach
                     </ul>
                     <div class="mt-6 flex flex-col gap-2 sm:mt-7 sm:flex-row sm:gap-3">
-                        <a href="{{ auth()->check() ? (auth()->user()->isAdmin() ? route('admin.dashboard') : route('client.home')) : route('register') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D9A233] px-6 py-4 text-sm font-black text-white shadow-gold" data-loading-link>{{ auth()->check() ? 'Ouvrir mon espace' : 'Commencer maintenant' }} <x-icon name="arrow-right" class="h-4 w-4" /></a>
+                        <a href="{{ route('training') }}" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D9A233] px-6 py-4 text-sm font-black text-white shadow-gold" data-loading-link>Commencer maintenant <x-icon name="arrow-right" class="h-4 w-4" /></a>
                         <a href="#faq" class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-6 py-4 text-sm font-black text-white">En savoir plus <x-icon name="clock" class="h-4 w-4" /></a>
                     </div>
                 </div>

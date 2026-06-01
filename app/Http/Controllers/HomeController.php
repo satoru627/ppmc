@@ -152,19 +152,6 @@ class HomeController extends Controller
     }
 
     /**
-     * Page home apres connexion.
-     */
-    public function home(): View
-    {
-        $featuredProducts = Product::active()
-            ->latest()
-            ->take(6)
-            ->get();
-
-        return view('pages.home', compact('featuredProducts'));
-    }
-
-    /**
      * Page formations inspiree du frontend Next.js.
      */
     public function training(): View
@@ -306,24 +293,6 @@ class HomeController extends Controller
 
             return false;
         })->values();
-    }
-
-    /**
-     * Page contact publique.
-     */
-    public function contact(): View
-    {
-        return view('pages.contact');
-    }
-
-    /**
-     * Redirige les visiteurs vers la connexion avant d'ouvrir un ticket.
-     */
-    public function contactSubmit(): RedirectResponse
-    {
-        return redirect()
-            ->route('login')
-            ->withErrors(['contact' => 'Connectez-vous pour contacter le support.']);
     }
 
     /**

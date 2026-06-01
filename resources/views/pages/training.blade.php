@@ -53,7 +53,7 @@
                 <p class="mt-4 max-w-xl text-xs font-medium leading-relaxed text-white/60 sm:mt-8 sm:text-xl">Systemes de richesse digitale : Crypto, Createur, Acquisition.</p>
                 <div class="mt-6 flex flex-col gap-2 sm:mt-12 sm:flex-row sm:items-center sm:gap-6">
                     <a href="#courses" class="rounded-full bg-gold px-6 py-3 text-center text-xs font-black text-navy shadow-gold transition hover:scale-105 sm:px-10 sm:py-5 sm:text-sm">Bibliotheque</a>
-                    <a href="{{ route('contact') }}" class="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-xs font-black text-white backdrop-blur-md sm:px-10 sm:py-5 sm:text-sm">Conseil</a>
+                    <a href="{{ route('catalog') }}" class="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-xs font-black text-white backdrop-blur-md sm:px-10 sm:py-5 sm:text-sm">Voir les offres</a>
                 </div>
                 <div class="mt-8 grid max-w-xl grid-cols-3 gap-2 sm:mt-16 sm:gap-4">
                     @foreach([['6', 'cours'], ['42', 'mod.'], ['24/7', 'acces']] as [$value, $label])
@@ -82,7 +82,7 @@
         <div class="mx-auto max-w-7xl">
             <div class="mb-10 flex flex-col justify-between gap-5 md:flex-row md:items-end">
                 <div><p class="text-sm font-black uppercase tracking-[0.18em] text-royal">Formations Premium</p><h2 class="mt-3 max-w-2xl text-3xl font-black leading-tight text-navy sm:text-5xl">Apprenez les systemes derriere la richesse digitale.</h2></div>
-                <a href="{{ route('contact') }}" class="w-fit rounded-full bg-white px-6 py-4 text-sm font-black text-royal shadow-premium">Parler a un conseiller</a>
+                <a href="{{ route('catalog') }}" class="w-fit rounded-full bg-white px-6 py-4 text-sm font-black text-royal shadow-premium">Voir le catalogue</a>
             </div>
             <div class="mb-10 flex flex-wrap items-center gap-3" data-training-filters>
                 <span class="mr-2 text-xs font-black uppercase tracking-widest text-slate-400">Filtrer par :</span>
@@ -103,7 +103,7 @@
                         <article class="premium-card group overflow-hidden rounded-[1.5rem] transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]" data-training-card data-category="{{ $category }}">
                             <div class="relative min-h-[130px] overflow-hidden sm:min-h-[220px]"><img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"><div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div><span class="absolute bottom-5 left-5 rounded-full bg-white/10 px-3 py-1 text-xs font-black text-gold backdrop-blur">{{ $category }}</span></div>
                             <div class="p-4 sm:p-6"><h3 class="text-sm font-black leading-tight text-navy sm:text-xl">{{ $title }}</h3><p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $description }}</p></div>
-                            <div class="flex items-center justify-between gap-3 border-t border-slate-100 p-4 sm:p-6"><span class="text-sm font-black text-navy sm:text-xl">{{ $price }}</span><a href="{{ route('contact') }}" class="rounded-full bg-royal px-4 py-2 text-xs font-black text-white shadow-glow">S'inscrire</a></div>
+                            <div class="flex items-center justify-between gap-3 border-t border-slate-100 p-4 sm:p-6"><span class="text-sm font-black text-navy sm:text-xl">{{ $price }}</span><a href="{{ route('catalog') }}" class="rounded-full bg-royal px-4 py-2 text-xs font-black text-white shadow-glow">Voir offres</a></div>
                         </article>
                     @endforeach
                 @endforelse

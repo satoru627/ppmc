@@ -132,7 +132,7 @@ class OrderController extends Controller
         $invoiceService->generateForOrder($order);
 
         $downloadUrl = URL::temporarySignedRoute(
-            'client.download',
+            'orders.download',
             now()->addHours(48),
             ['token' => Crypt::encryptString((string) $order->id)]
         );

@@ -22,7 +22,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Authentifie le client ou l'administrateur.
+     * Authentifie l'administrateur.
      */
     public function store(Request $request): RedirectResponse
     {
@@ -51,12 +51,19 @@ class LoginController extends Controller
             ]);
         }
 
+        if (! $request->user()->isAdmin()) {
+            Auth::logout();
+            RateLimiter::hit($this->throttleKey($request));
+
+            throw ValidationException::withMessages([
+                'email' => 'Connexion reservee a l administration.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey($request));
         $request->session()->regenerate();
 
-        return redirect()->intended(
-            $request->user()->isAdmin() ? route('admin.dashboard') : route('client.home')
-        );
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     /**

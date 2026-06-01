@@ -119,7 +119,7 @@
     @unless($hideLayoutShell)
     <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
         <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 rounded-[1.25rem] border px-3 backdrop-blur-2xl transition-all duration-300 sm:h-20 sm:rounded-[1.75rem] sm:px-5 {{ $navShell }}">
-            <a href="{{ auth()->check() ? route('client.home') : route('home') }}" class="flex min-w-0 items-center gap-2 sm:gap-3">
+            <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-2 sm:gap-3">
                 <img src="{{ asset('/assets/logo.png') }}" alt="PPMC" class="h-10 w-auto max-w-[4.75rem] shrink-0 rounded-xl object-contain shadow-premium sm:h-11 sm:max-w-[5.25rem]">
                 <span class="truncate text-xl font-black tracking-normal {{ $darkNav ? 'text-white' : 'text-navy' }}">PPMC</span>
             </a>
@@ -130,23 +130,18 @@
                 <a href="{{ route('training') }}" class="text-sm font-extrabold transition {{ $navText }}">Formations</a>
                 <a href="{{ route('service') }}" class="text-sm font-extrabold transition {{ $navText }}">Services</a>
                 <a href="{{ route('about') }}" class="text-sm font-extrabold transition {{ $navText }}">A propos</a>
-                @auth
-                    <a href="{{ route('contact') }}" class="text-sm font-extrabold transition {{ $navText }}">Contact</a>
-                @endauth
             </nav>
 
             <div class="hidden items-center gap-4 lg:flex">
-                @guest
-                    <a href="{{ route('login') }}" class="text-sm font-black transition hover:text-gold {{ $darkNav ? 'text-white' : 'text-navy' }}" data-loading-link>Se connecter</a>
-                    <a href="{{ route('register') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0" data-loading-link>S'enregistrer</a>
-                @else
-                    <a href="{{ route('client.home') }}" class="text-sm font-black transition hover:text-gold {{ $darkNav ? 'text-white' : 'text-navy' }}">Home</a>
-                    <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('client.dashboard') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0">Dashboard</a>
+                @auth
+                    @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="rounded-xl bg-[#D9A233] px-5 py-3 text-sm font-black text-white shadow-[0_12px_30px_rgba(217,162,51,.35)] transition hover:-translate-y-0.5 active:translate-y-0">Dashboard</a>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button class="text-sm font-black transition hover:text-gold {{ $darkNav ? 'text-white/75' : 'text-slate-500' }}">Sortir</button>
                     </form>
-                @endguest
+                    @endif
+                @endauth
             </div>
 
             <button
@@ -178,15 +173,13 @@
             <a href="{{ route('home') }}#faq" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>FAQ</a>
 
             @auth
-                <a href="{{ route('contact') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Contact</a>
-                <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('client.home') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-nav-link>Mon espace</a>
+                @if(auth()->user()->isAdmin())
+                <a href="{{ route('admin.dashboard') }}" class="mt-4 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-nav-link>Dashboard</a>
                 <form action="{{ route('logout') }}" method="POST" class="mt-2">
                     @csrf
                     <button type="submit" class="block w-full rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white">Deconnexion</button>
                 </form>
-            @else
-                <a href="{{ route('login') }}" class="mt-4 block rounded-full border border-white/20 px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white" data-nav-link data-loading-link>Connexion</a>
-                <a href="{{ route('register') }}" class="mt-2 block rounded-full bg-[#D9A233] px-4 py-4 text-center text-xs font-black uppercase tracking-widest text-white shadow-gold" data-nav-link data-loading-link>Inscription</a>
+                @endif
             @endauth
         </aside>
     </div>
@@ -226,9 +219,6 @@
                     <a href="{{ route('training') }}" class="transition hover:text-gold">Formations</a>
                     <a href="{{ route('service') }}" class="transition hover:text-gold">Services</a>
                     <a href="{{ route('about') }}" class="transition hover:text-gold">A propos</a>
-                    @auth
-                        <a href="{{ route('contact') }}" class="transition hover:text-gold">Contact</a>
-                    @endauth
                 </nav>
             </div>
 

@@ -21,7 +21,7 @@
                             <p style="margin:30px 0;">
                                 <a href="{{ $downloadUrl }}" style="background:#E8184A;color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:999px;font-weight:bold;">Telecharger mon contenu</a>
                             </p>
-                            <p style="font-size:14px;line-height:1.7;color:#64748b;">Votre facture PDF est jointe si elle a ete generee. Vous pouvez aussi la retrouver dans votre espace client.</p>
+                            <p style="font-size:14px;line-height:1.7;color:#64748b;">Votre facture PDF est jointe si elle a ete generee.</p>
                             <p style="font-size:14px;line-height:1.7;color:#64748b;">Montant: <strong>{{ $order->formatted_amount }}</strong></p>
                         </td>
                     </tr>

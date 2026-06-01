@@ -5,11 +5,7 @@ use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\SupportTicketController as AdminSupportTicketController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
-use App\Http\Controllers\Client\SupportTicketController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\HomeController;
 use App\Http\Middleware\AdminMiddleware;
@@ -34,39 +30,23 @@ Route::get('/formations', [HomeController::class, 'formations'])->name('formatio
 Route::get('/services', [HomeController::class, 'services'])->name('services');
 Route::get('/produits/{product:slug}', [HomeController::class, 'show'])->name('products.show');
 Route::get('/produits/{product:slug}/acheter', [HomeController::class, 'buy'])->name('products.buy');
+Route::get('/download/{token}', DownloadController::class)
+    ->middleware('signed')
+    ->name('orders.download');
 
 Route::middleware('guest')->group(function (): void {
-    Route::get('/register', [RegisterController::class, 'create'])->name('register');
-    Route::post('/register', [RegisterController::class, 'store'])->middleware('throttle:5,1');
     Route::get('/login', [LoginController::class, 'create'])->name('login');
     Route::post('/login', [LoginController::class, 'store'])->middleware('throttle:10,1');
-    Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->middleware('throttle:10,1')->name('auth.google.redirect');
-    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 });
 
 /*
 |--------------------------------------------------------------------------
-| Routes protegees client
+| Routes protegees session
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function (): void {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
-    Route::get('/home', [HomeController::class, 'home'])->name('client.home');
-
-    Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-    Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact.submit');
-    Route::get('/download/{token}', DownloadController::class)
-        ->middleware('signed')
-        ->name('client.download');
-
-    Route::prefix('client')->name('client.')->group(function (): void {
-        Route::get('/dashboard', [ClientDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/orders', [ClientDashboardController::class, 'orders'])->name('orders');
-        Route::get('/orders/{order}/invoice', [ClientDashboardController::class, 'downloadInvoice'])->name('orders.invoice');
-        Route::get('/support', [ClientDashboardController::class, 'support'])->name('support');
-        Route::post('/support', [SupportTicketController::class, 'store'])->name('support.store');
-    });
 });
 
 /*
