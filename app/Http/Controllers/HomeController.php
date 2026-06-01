@@ -359,7 +359,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Redirige un client connecte vers la page d'achat Chariow.
+     * Redirige le visiteur vers la page d'achat Chariow.
      */
     public function buy(Product $product): RedirectResponse
     {

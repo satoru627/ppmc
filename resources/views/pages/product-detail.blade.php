@@ -63,7 +63,7 @@
 
                         <div class="mt-5 grid gap-3">
                             @if($usesChariow)
-                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">{{ auth()->check() ? 'Acheter maintenant' : 'Se connecter pour acheter' }}</a>
+                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">Acheter maintenant</a>
                             @else
                                 <span class="rounded-full bg-slate-200 px-6 py-4 text-center text-sm font-black text-slate-500">Produit bientot disponible</span>
                             @endif

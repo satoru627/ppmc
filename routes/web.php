@@ -33,6 +33,7 @@ Route::get('/crypto', [HomeController::class, 'legacyCrypto'])->name('legacy.cry
 Route::get('/formations', [HomeController::class, 'formations'])->name('formations');
 Route::get('/services', [HomeController::class, 'services'])->name('services');
 Route::get('/produits/{product:slug}', [HomeController::class, 'show'])->name('products.show');
+Route::get('/produits/{product:slug}/acheter', [HomeController::class, 'buy'])->name('products.buy');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
@@ -55,7 +56,6 @@ Route::middleware('auth')->group(function (): void {
 
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
     Route::post('/contact', [HomeController::class, 'contactSubmit'])->name('contact.submit');
-    Route::get('/produits/{product:slug}/acheter', [HomeController::class, 'buy'])->name('products.buy');
     Route::get('/download/{token}', DownloadController::class)
         ->middleware('signed')
         ->name('client.download');
