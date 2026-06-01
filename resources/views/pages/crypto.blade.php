@@ -124,9 +124,7 @@
                 <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div class="max-w-3xl">
                         <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Comptes sociaux</p>
-                        <h1 class="mt-2 text-2xl font-mono text-blue-700 font-extrabold leading-tight text-navy sm:text-5xl">
-                            Choisissez votre plateforme
-                        </h1>
+                      
                         <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
                             TikTok, Facebook ou YouTube: selectionnez une plateforme pour voir les comptes disponibles.
                         </p>
