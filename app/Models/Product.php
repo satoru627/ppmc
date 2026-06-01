@@ -54,6 +54,14 @@ class Product extends Model
     }
 
     /**
+     * Contacts laisses avant une redirection vers le paiement.
+     */
+    public function purchaseLeads(): HasMany
+    {
+        return $this->hasMany(PurchaseLead::class);
+    }
+
+    /**
      * Scope pour afficher uniquement les produits actifs.
      */
     public function scopeActive(Builder $query): Builder

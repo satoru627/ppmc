@@ -66,7 +66,7 @@
 
                         <div class="mt-5 grid gap-3">
                             @if($usesChariow)
-                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy" data-purchase-popup-trigger>Acheter maintenant</a>
+                                <a href="{{ route('products.buy', $product) }}" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy" data-purchase-popup-trigger data-purchase-lead-url="{{ route('products.leads.store', $product) }}">Acheter maintenant</a>
                             @else
                                 <span class="rounded-full bg-slate-200 px-6 py-4 text-center text-sm font-black text-slate-500">Produit bientot disponible</span>
                             @endif
@@ -157,10 +157,12 @@
                     const form = document.querySelector('[data-purchase-popup-form]');
                     const skip = document.querySelector('[data-purchase-popup-skip]');
                     const closeButtons = document.querySelectorAll('[data-purchase-popup-close]');
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
                     if (!trigger || !popup) return;
 
                     const buyUrl = trigger.getAttribute('href');
+                    const storeUrl = trigger.dataset.purchaseLeadUrl;
 
                     const openPopup = () => {
                         popup.classList.remove('hidden');
@@ -178,13 +180,41 @@
                         window.location.href = buyUrl;
                     };
 
+                    const hasLeadData = () => {
+                        if (!form) return false;
+
+                        return ['name', 'email'].some((field) => {
+                            return (form.elements[field]?.value || '').trim() !== '';
+                        });
+                    };
+
+                    const saveLead = async () => {
+                        if (!form || !storeUrl || !hasLeadData()) return;
+
+                        try {
+                            await fetch(storeUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'X-CSRF-TOKEN': csrfToken,
+                                    'X-Requested-With': 'XMLHttpRequest',
+                                },
+                                body: new FormData(form),
+                                credentials: 'same-origin',
+                            });
+                        } catch (error) {
+                            // La sauvegarde est optionnelle: l'achat ne doit pas etre bloque.
+                        }
+                    };
+
                     trigger.addEventListener('click', (event) => {
                         event.preventDefault();
                         openPopup();
                     });
 
-                    form?.addEventListener('submit', (event) => {
+                    form?.addEventListener('submit', async (event) => {
                         event.preventDefault();
+                        await saveLead();
                         goToPayment();
                     });
 
