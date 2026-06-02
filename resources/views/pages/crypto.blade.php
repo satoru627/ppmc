@@ -194,31 +194,29 @@
                             $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                         @endphp
                         <article
-                            class="group relative rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
+                            class="group relative overflow-hidden rounded-xl border border-blue-100 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-premium sm:rounded-2xl"
                             data-service-card
                             data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $platform['name']) }}"
                         >
-                            @if($product->is_on_promotion)
-                                <span class="absolute -right-1 -top-1 z-20 rounded-full bg-rose-600 px-2.5 py-1 text-[9px] font-black text-white shadow-premium ring-2 ring-white sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
-                            @endif
-                            <div class="relative h-28 overflow-hidden rounded-t-2xl bg-navy sm:h-56 sm:rounded-t-[2rem]">
-                                <img src="{{ $product->imageUrl('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
+                            <div class="relative h-32 overflow-hidden bg-slate-50 sm:h-56">
+                                @if($product->is_on_promotion)
+                                    <span class="absolute left-2 top-2 z-20 rounded-full bg-orange-400 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:px-3 sm:text-xs">Promo</span>
+                                @endif
+                                <span class="absolute right-2 top-2 z-20 grid h-8 w-8 place-items-center rounded-full bg-white shadow-md sm:h-10 sm:w-10"><x-social-logo :name="$platform['logo']" class="h-5 w-5 sm:h-6 sm:w-6" /></span>
+                                <img src="{{ $product->imageUrl('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105 sm:p-4">
                             </div>
 
-                            <div class="p-3 sm:p-6">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-black sm:gap-1.5 sm:px-3 sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$platform['logo']" class="h-3 w-3 sm:h-3.5 sm:w-3.5" />{{ $platform['name'] }}</span>
-                                    <span class="hidden rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:inline-flex sm:text-xs">Disponible</span>
-                                </div>
-                                <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $product->title }}</h2>
+                            <div class="p-3 sm:p-5">
+                                <h2 class="line-clamp-2 min-h-9 text-xs font-semibold leading-tight text-slate-800 sm:min-h-12 sm:text-base">{{ $product->title }}</h2>
+                                <p class="mt-1 text-[9px] font-black uppercase tracking-[0.12em] text-emerald-600 sm:text-xs">{{ $platform['name'] }}</p>
                                 <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $product->description }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-2 border-t border-slate-100 p-3 sm:gap-3 sm:p-6">
+                            <div class="flex items-end justify-between gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
                                 <x-product-price :product="$product" />
-                                <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-3 py-2 text-center text-[10px] font-black text-white shadow-glow transition hover:bg-navy sm:px-4 sm:py-2.5 sm:text-xs">Voir detail</a>
+                                <a href="{{ route('products.show', $product) }}" class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-royal text-white shadow-glow transition hover:bg-navy sm:h-10 sm:w-10" aria-label="Voir detail">
+                                    <x-icon name="shopping-cart" class="h-4 w-4 sm:h-5 sm:w-5" />
+                                </a>
                             </div>
                         </article>
                     @empty
@@ -228,36 +226,33 @@
                                 $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                             @endphp
                             <article
-                                class="group relative rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
+                                class="group relative overflow-hidden rounded-xl border border-blue-100 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-premium sm:rounded-2xl"
                                 data-service-card
                                 data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $platform['name'] . ' ' . $status) }}"
                             >
-                                @if($linkedProduct?->is_on_promotion)
-                                    <span class="absolute -right-1 -top-1 z-20 rounded-full bg-rose-600 px-2.5 py-1 text-[9px] font-black text-white shadow-premium ring-2 ring-white sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
-                                @endif
-                                <div class="relative h-28 overflow-hidden rounded-t-2xl bg-navy sm:h-56 sm:rounded-t-[2rem]">
-                                    <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
-                                    <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                    <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$logo" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
+                                <div class="relative h-32 overflow-hidden bg-slate-50 sm:h-56">
+                                    @if($linkedProduct?->is_on_promotion)
+                                        <span class="absolute left-2 top-2 z-20 rounded-full bg-orange-400 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:px-3 sm:text-xs">Promo</span>
+                                    @endif
+                                    <span class="absolute right-2 top-2 z-20 grid h-8 w-8 place-items-center rounded-full bg-white shadow-md sm:h-10 sm:w-10"><x-social-logo :name="$logo" class="h-5 w-5 sm:h-6 sm:w-6" /></span>
+                                    <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105 sm:p-4">
                                 </div>
 
-                                <div class="p-3 sm:p-6">
-                                    <div class="flex flex-wrap items-center gap-2">
-                                        <span class="inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-black sm:gap-1.5 sm:px-3 sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$logo" class="h-3 w-3 sm:h-3.5 sm:w-3.5" />{{ $platform['name'] }}</span>
-                                        <span class="hidden rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:inline-flex sm:text-xs">{{ $status }}</span>
-                                    </div>
-                                    <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $title }}</h2>
+                                <div class="p-3 sm:p-5">
+                                    <h2 class="line-clamp-2 min-h-9 text-xs font-semibold leading-tight text-slate-800 sm:min-h-12 sm:text-base">{{ $title }}</h2>
+                                    <p class="mt-1 text-[9px] font-black uppercase tracking-[0.12em] text-emerald-600 sm:text-xs">{{ $platform['name'] }}</p>
                                     <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $description }}</p>
-                                    <p class="mt-2 text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 sm:mt-3 sm:text-[10px] sm:tracking-[0.14em]">{{ $followers }}</p>
                                 </div>
 
-                                <div class="flex flex-col gap-2 border-t border-slate-100 p-3 sm:gap-3 sm:p-6">
+                                <div class="flex items-end justify-between gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
                                     @if($linkedProduct)
                                         <x-product-price :product="$linkedProduct" />
                                     @else
                                         <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
                                     @endif
-                                    <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-royal px-3 py-2 text-center text-[10px] font-black text-white shadow-glow transition hover:bg-navy sm:px-4 sm:py-2.5 sm:text-xs">Voir detail</a>
+                                    <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-royal text-white shadow-glow transition hover:bg-navy sm:h-10 sm:w-10" aria-label="Voir detail">
+                                        <x-icon name="shopping-cart" class="h-4 w-4 sm:h-5 sm:w-5" />
+                                    </a>
                                 </div>
                             </article>
                         @endforeach
