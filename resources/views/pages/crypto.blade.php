@@ -124,7 +124,6 @@
                 <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                     <div class="max-w-3xl">
                         <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Comptes sociaux</p>
-                      
                         <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
                             TikTok, Facebook ou YouTube: selectionnez une plateforme pour voir les comptes disponibles.
                         </p>
@@ -187,7 +186,7 @@
             @endunless
 
             @if($selectedPlatform)
-                <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4" data-service-grid>
+                <div class="mt-8 grid grid-cols-2 gap-2.5 sm:gap-5 md:grid-cols-3 xl:grid-cols-4" data-service-grid>
                     @forelse($serviceProducts as $product)
                         @php
                             $platformSlug = $selectedPlatform ?: $detectServicePlatform($product);
@@ -195,31 +194,31 @@
                             $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                         @endphp
                         <article
-                            class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                            class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
                             data-service-card
                             data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $platform['name']) }}"
                         >
-                            <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
+                            <div class="relative h-28 overflow-hidden bg-navy sm:h-56">
                                 <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                <span class="absolute bottom-3 left-3 grid h-10 w-10 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-8 w-8 sm:h-10 sm:w-10" /></span>
+                                <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
                                 @if($product->is_on_promotion)
-                                    <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                                    <span class="absolute right-2 top-2 rounded-full bg-rose-600 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
                                 @endif
                             </div>
 
-                            <div class="p-4 sm:p-6">
+                            <div class="p-3 sm:p-6">
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <span class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-black sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$platform['logo']" class="h-3.5 w-3.5" />{{ $platform['name'] }}</span>
-                                    <span class="rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:text-xs">Disponible</span>
+                                    <span class="inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-black sm:gap-1.5 sm:px-3 sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$platform['logo']" class="h-3 w-3 sm:h-3.5 sm:w-3.5" />{{ $platform['name'] }}</span>
+                                    <span class="hidden rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:inline-flex sm:text-xs">Disponible</span>
                                 </div>
-                                <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $product->title }}</h2>
-                                <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $product->description }}</p>
+                                <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $product->title }}</h2>
+                                <p class="hidden sm:mt-2 sm:line-clamp-2 sm:block sm:text-xs sm:font-semibold sm:leading-5 sm:text-slate-500">{{ $product->description }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                            <div class="flex flex-col gap-2 border-t border-slate-100 p-3 sm:gap-3 sm:p-6">
                                 <x-product-price :product="$product" />
-                                <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir detail</a>
+                                <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-3 py-2 text-center text-[10px] font-black text-white shadow-glow transition hover:bg-navy sm:px-4 sm:py-2.5 sm:text-xs">Voir detail</a>
                             </div>
                         </article>
                     @empty
@@ -229,36 +228,36 @@
                                 $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                             @endphp
                             <article
-                                class="group overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                                class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
                                 data-service-card
                                 data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $platform['name'] . ' ' . $status) }}"
                             >
-                                <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
+                                <div class="relative h-28 overflow-hidden bg-navy sm:h-56">
                                     <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                    <span class="absolute bottom-3 left-3 grid h-10 w-10 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$logo" class="h-8 w-8 sm:h-10 sm:w-10" /></span>
+                                    <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$logo" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
                                     @if($linkedProduct?->is_on_promotion)
-                                        <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                                        <span class="absolute right-2 top-2 rounded-full bg-rose-600 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
                                     @endif
                                 </div>
 
-                                <div class="p-4 sm:p-6">
+                                <div class="p-3 sm:p-6">
                                     <div class="flex flex-wrap items-center gap-2">
-                                        <span class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-black sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$logo" class="h-3.5 w-3.5" />{{ $platform['name'] }}</span>
-                                        <span class="rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:text-xs">{{ $status }}</span>
+                                        <span class="inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[9px] font-black sm:gap-1.5 sm:px-3 sm:text-xs {{ $style['soft'] }}"><x-social-logo :name="$logo" class="h-3 w-3 sm:h-3.5 sm:w-3.5" />{{ $platform['name'] }}</span>
+                                        <span class="hidden rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:inline-flex sm:text-xs">{{ $status }}</span>
                                     </div>
-                                    <h2 class="mt-3 min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $title }}</h2>
-                                    <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $description }}</p>
-                                    <p class="mt-3 text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">{{ $followers }}</p>
+                                    <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $title }}</h2>
+                                    <p class="hidden sm:mt-2 sm:line-clamp-2 sm:block sm:text-xs sm:font-semibold sm:leading-5 sm:text-slate-500">{{ $description }}</p>
+                                    <p class="mt-2 text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 sm:mt-3 sm:text-[10px] sm:tracking-[0.14em]">{{ $followers }}</p>
                                 </div>
 
-                                <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                                <div class="flex flex-col gap-2 border-t border-slate-100 p-3 sm:gap-3 sm:p-6">
                                     @if($linkedProduct)
                                         <x-product-price :product="$linkedProduct" />
                                     @else
                                         <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
                                     @endif
-                                    <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir detail</a>
+                                    <a href="{{ $linkedProduct ? route('products.show', $linkedProduct) : route('catalog', ['type' => 'service']) }}" class="rounded-full bg-royal px-3 py-2 text-center text-[10px] font-black text-white shadow-glow transition hover:bg-navy sm:px-4 sm:py-2.5 sm:text-xs">Voir detail</a>
                                 </div>
                             </article>
                         @endforeach

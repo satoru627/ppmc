@@ -7,10 +7,10 @@
         : 'text-xs font-black text-navy sm:text-lg';
     $oldClass = $large
         ? 'text-sm font-black text-slate-400 line-through sm:text-base'
-        : 'text-[11px] font-black text-slate-400 line-through sm:text-xs';
+        : 'text-[10px] font-black text-slate-400 line-through sm:text-xs';
     $countdownClass = $large
         ? 'mt-3 rounded-2xl bg-rose-50 px-4 py-3 text-xs font-black text-rose-700'
-        : 'mt-2 rounded-xl bg-rose-50 px-3 py-2 text-[10px] font-black text-rose-700 sm:text-xs';
+        : 'mt-1.5 rounded-lg bg-rose-50 px-2 py-1.5 text-[9px] font-black leading-none text-rose-700 sm:mt-2 sm:rounded-xl sm:px-3 sm:py-2 sm:text-xs';
 @endphp
 
 <div {{ $attributes->merge(['class' => 'min-w-0']) }}>
