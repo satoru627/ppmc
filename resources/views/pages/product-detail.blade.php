@@ -6,7 +6,7 @@
     @php
         $isFormation = $product->type === 'formation';
         $image = $product->image
-            ? asset('storage/' . $product->image)
+            ? $product->imageUrl($isFormation ? '/assets/training/crypto-masterclass.jpg' : '/assets/training/digital-products.jpg')
             : asset($isFormation ? '/assets/training/crypto-masterclass.jpg' : '/assets/training/digital-products.jpg');
         $shortDescription = \Illuminate\Support\Str::limit($product->description, 180);
         $typeLabel = $isFormation ? 'Formation' : 'Service';

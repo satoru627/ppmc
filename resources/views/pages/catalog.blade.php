@@ -69,7 +69,7 @@
                 @forelse($products as $product)
                     <article class="overflow-hidden rounded-[1.5rem] bg-white shadow-premium transition hover:-translate-y-2 sm:rounded-[2rem]">
                         <div class="relative h-36 bg-slate-100 sm:h-56">
-                            <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="h-full w-full object-cover">
+                            <img src="{{ $product->imageUrl('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="h-full w-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-navy/70 via-transparent to-transparent"></div>
                             <span class="absolute left-3 top-3 rounded-full bg-white px-2.5 py-1 text-[10px] font-black text-royal sm:left-4 sm:top-4 sm:px-3 sm:text-xs">{{ ucfirst($product->type) }}</span>
                             @if($product->is_on_promotion)

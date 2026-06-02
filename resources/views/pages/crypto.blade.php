@@ -194,17 +194,17 @@
                             $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                         @endphp
                         <article
-                            class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
+                            class="group relative rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
                             data-service-card
                             data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $platform['name']) }}"
                         >
-                            <div class="relative h-28 overflow-hidden bg-navy sm:h-56">
-                                <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
+                            @if($product->is_on_promotion)
+                                <span class="absolute -right-1 -top-1 z-20 rounded-full bg-rose-600 px-2.5 py-1 text-[9px] font-black text-white shadow-premium ring-2 ring-white sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
+                            @endif
+                            <div class="relative h-28 overflow-hidden rounded-t-2xl bg-navy sm:h-56 sm:rounded-t-[2rem]">
+                                <img src="{{ $product->imageUrl('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
                                 <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
                                 <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$platform['logo']" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
-                                @if($product->is_on_promotion)
-                                    <span class="absolute right-2 top-2 rounded-full bg-rose-600 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
-                                @endif
                             </div>
 
                             <div class="p-3 sm:p-6">
@@ -228,17 +228,17 @@
                                 $style = $platformStyles[$platformSlug] ?? $platformStyles['tiktok'];
                             @endphp
                             <article
-                                class="group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
+                                class="group relative rounded-2xl border border-slate-200 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium sm:rounded-[2rem] sm:shadow-premium sm:hover:-translate-y-2"
                                 data-service-card
                                 data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $platform['name'] . ' ' . $status) }}"
                             >
-                                <div class="relative h-28 overflow-hidden bg-navy sm:h-56">
+                                @if($linkedProduct?->is_on_promotion)
+                                    <span class="absolute -right-1 -top-1 z-20 rounded-full bg-rose-600 px-2.5 py-1 text-[9px] font-black text-white shadow-premium ring-2 ring-white sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
+                                @endif
+                                <div class="relative h-28 overflow-hidden rounded-t-2xl bg-navy sm:h-56 sm:rounded-t-[2rem]">
                                     <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
                                     <span class="absolute bottom-2 left-2 grid h-8 w-8 place-items-center sm:bottom-5 sm:left-5 sm:h-12 sm:w-12"><x-social-logo :name="$logo" class="h-6 w-6 sm:h-10 sm:w-10" /></span>
-                                    @if($linkedProduct?->is_on_promotion)
-                                        <span class="absolute right-2 top-2 rounded-full bg-rose-600 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:right-3 sm:top-3 sm:px-3 sm:text-xs">Promo</span>
-                                    @endif
                                 </div>
 
                                 <div class="p-3 sm:p-6">

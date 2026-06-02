@@ -14,7 +14,7 @@
         @forelse($products as $product)
             <article class="rounded-[2rem] bg-white p-5 shadow-soft">
                 <div class="flex gap-4">
-                    <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="h-24 w-24 rounded-2xl object-cover">
+                    <img src="{{ $product->imageUrl('/assets/training/digital-products.jpg') }}" alt="{{ $product->title }}" class="h-24 w-24 rounded-2xl object-cover">
                     <div class="min-w-0 flex-1">
                         <div class="flex flex-wrap gap-2">
                             <span class="rounded-full bg-royal/10 px-3 py-1 text-xs font-black text-royal">{{ $product->type }}</span>
