@@ -43,7 +43,7 @@
             <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                 <div class="max-w-3xl">
                     <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Formations</p>
-                    <h1 class="mt-2 text-3xl font-black leading-tight text-navy sm:text-5xl">Toutes les formations.</h1>
+                 
                     <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
                         Recherchez une formation, filtrez par categorie et ouvrez directement les details.
                     </p>
