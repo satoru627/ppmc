@@ -71,56 +71,60 @@
                 </div>
             </div>
 
-            <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4" data-training-grid>
+            <div class="mt-8 grid grid-cols-2 gap-2.5 sm:gap-5 md:grid-cols-3 xl:grid-cols-4" data-training-grid>
                 @forelse($formationProducts as $product)
                     @php($category = $detectCourseCategory($product->title, $product->description))
                     <article
-                        class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                        class="group relative overflow-hidden rounded-xl border border-blue-100 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-premium sm:rounded-2xl"
                         data-training-card
                         data-category="{{ $category }}"
                         data-search="{{ \Illuminate\Support\Str::lower($product->title . ' ' . $product->description . ' ' . $category) }}"
                     >
-                        <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
-                            <img src="{{ $product->image ? asset('storage/' . $product->image) : asset('/assets/training/crypto-masterclass.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                            <span class="absolute bottom-3 left-3 rounded-full bg-white/10 px-3 py-1 text-[10px] font-black text-gold backdrop-blur sm:bottom-5 sm:left-5 sm:text-xs">{{ $category }}</span>
+                        <div class="relative h-32 overflow-hidden bg-slate-50 sm:h-56">
                             @if($product->is_on_promotion)
-                                <span class="absolute right-3 top-3 rounded-full bg-rose-600 px-3 py-1 text-[10px] font-black text-white shadow-premium sm:text-xs">Promo</span>
+                                <span class="absolute left-2 top-2 z-20 rounded-full bg-orange-400 px-2 py-1 text-[9px] font-black text-white shadow-premium sm:px-3 sm:text-xs">Promo</span>
                             @endif
+                            <span class="absolute right-2 top-2 z-20 rounded-full bg-white px-2 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-royal shadow-md sm:px-3 sm:text-xs">{{ $category }}</span>
+                            <img src="{{ $product->imageUrl('/assets/training/crypto-masterclass.jpg') }}" alt="{{ $product->title }}" class="absolute inset-0 h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105 sm:p-4">
                         </div>
 
-                        <div class="p-4 sm:p-6">
-                            <h2 class="min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $product->title }}</h2>
-                            <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $product->description }}</p>
+                        <div class="p-3 sm:p-5">
+                            <h2 class="line-clamp-2 min-h-9 text-xs font-semibold leading-tight text-slate-800 sm:min-h-12 sm:text-base">{{ $product->title }}</h2>
+                            <p class="mt-1 text-[9px] font-black uppercase tracking-[0.12em] text-emerald-600 sm:text-xs">Formation</p>
+                            <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $product->description }}</p>
                         </div>
 
-                        <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                        <div class="flex items-end justify-between gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
                             <x-product-price :product="$product" />
-                            <a href="{{ route('products.show', $product) }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir la formation</a>
+                            <a href="{{ route('products.show', $product) }}" class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-royal text-white shadow-glow transition hover:bg-navy sm:h-10 sm:w-10" aria-label="Voir la formation">
+                                <x-icon name="shopping-cart" class="h-4 w-4 sm:h-5 sm:w-5" />
+                            </a>
                         </div>
                     </article>
                 @empty
                     @foreach($fallbackCourses as [$title, $category, $description, $price, $image])
                         <article
-                            class="group overflow-hidden rounded-[1.35rem] bg-white shadow-premium transition hover:-translate-y-2 hover:shadow-premium sm:rounded-[2rem]"
+                            class="group relative overflow-hidden rounded-xl border border-blue-100 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-premium sm:rounded-2xl"
                             data-training-card
                             data-category="{{ $category }}"
                             data-search="{{ \Illuminate\Support\Str::lower($title . ' ' . $description . ' ' . $category) }}"
                         >
-                            <div class="relative h-36 overflow-hidden bg-navy sm:h-56">
-                                <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105">
-                                <div class="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent"></div>
-                                <span class="absolute bottom-3 left-3 rounded-full bg-white/10 px-3 py-1 text-[10px] font-black text-gold backdrop-blur sm:bottom-5 sm:left-5 sm:text-xs">{{ $category }}</span>
+                            <div class="relative h-32 overflow-hidden bg-slate-50 sm:h-56">
+                                <span class="absolute right-2 top-2 z-20 rounded-full bg-white px-2 py-1 text-[9px] font-black uppercase tracking-[0.08em] text-royal shadow-md sm:px-3 sm:text-xs">{{ $category }}</span>
+                                <img src="{{ asset($image) }}" alt="{{ $title }}" class="absolute inset-0 h-full w-full object-contain p-2 transition duration-700 group-hover:scale-105 sm:p-4">
                             </div>
 
-                            <div class="p-4 sm:p-6">
-                                <h2 class="min-h-10 text-sm font-black leading-tight text-navy sm:text-xl">{{ $title }}</h2>
-                                <p class="mt-2 line-clamp-2 text-xs font-semibold leading-5 text-slate-500">{{ $description }}</p>
+                            <div class="p-3 sm:p-5">
+                                <h2 class="line-clamp-2 min-h-9 text-xs font-semibold leading-tight text-slate-800 sm:min-h-12 sm:text-base">{{ $title }}</h2>
+                                <p class="mt-1 text-[9px] font-black uppercase tracking-[0.12em] text-emerald-600 sm:text-xs">Formation</p>
+                                <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $description }}</p>
                             </div>
 
-                            <div class="flex flex-col gap-3 border-t border-slate-100 p-4 sm:p-6">
+                            <div class="flex items-end justify-between gap-2 px-3 pb-3 sm:px-5 sm:pb-5">
                                 <span class="text-xs font-black text-navy sm:text-lg">{{ $price }}</span>
-                                <a href="{{ route('catalog') }}" class="rounded-full bg-royal px-4 py-2.5 text-center text-xs font-black text-white shadow-glow transition hover:bg-navy">Voir les offres</a>
+                                <a href="{{ route('catalog') }}" class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-royal text-white shadow-glow transition hover:bg-navy sm:h-10 sm:w-10" aria-label="Voir les offres">
+                                    <x-icon name="shopping-cart" class="h-4 w-4 sm:h-5 sm:w-5" />
+                                </a>
                             </div>
                         </article>
                     @endforeach
