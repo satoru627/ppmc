@@ -213,7 +213,7 @@
                                     <span class="hidden rounded-full bg-emerald-50 px-3 py-1 text-[10px] font-black text-emerald-700 sm:inline-flex sm:text-xs">Disponible</span>
                                 </div>
                                 <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $product->title }}</h2>
-                                <p class="hidden sm:mt-2 sm:line-clamp-2 sm:block sm:text-xs sm:font-semibold sm:leading-5 sm:text-slate-500">{{ $product->description }}</p>
+                                <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $product->description }}</p>
                             </div>
 
                             <div class="flex flex-col gap-2 border-t border-slate-100 p-3 sm:gap-3 sm:p-6">
@@ -247,7 +247,7 @@
                                         <span class="hidden rounded-full bg-gold/20 px-3 py-1 text-[10px] font-black text-[#805B08] sm:inline-flex sm:text-xs">{{ $status }}</span>
                                     </div>
                                     <h2 class="mt-2 line-clamp-2 min-h-9 text-xs font-black leading-tight text-navy sm:mt-3 sm:min-h-10 sm:text-xl">{{ $title }}</h2>
-                                    <p class="hidden sm:mt-2 sm:line-clamp-2 sm:block sm:text-xs sm:font-semibold sm:leading-5 sm:text-slate-500">{{ $description }}</p>
+                                    <p class="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 text-slate-500 sm:mt-2 sm:text-xs sm:leading-5">{{ $description }}</p>
                                     <p class="mt-2 text-[9px] font-black uppercase tracking-[0.12em] text-slate-400 sm:mt-3 sm:text-[10px] sm:tracking-[0.14em]">{{ $followers }}</p>
                                 </div>
 
