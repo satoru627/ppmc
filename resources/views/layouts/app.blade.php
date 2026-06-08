@@ -7,7 +7,13 @@
     <title>@yield('title', config('app.name', 'PPMC'))</title>
     <link rel="icon" type="image/png" href="{{ asset('/assets/logo.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('/assets/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('/icons/icon-192.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.webmanifest') }}">
+    <meta name="theme-color" content="#071B3B">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="PPMC">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -422,6 +428,13 @@
                 if (event.key === 'Escape') setOpen(false);
             });
         });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+            });
+        }
     </script>
     @stack('scripts')
 </body>
