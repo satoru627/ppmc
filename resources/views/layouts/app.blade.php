@@ -262,6 +262,20 @@
         </div>
     @endif
 
+    <div class="fixed inset-x-3 bottom-3 z-50 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-premium sm:left-auto sm:right-5 sm:w-full sm:max-w-sm" data-pwa-install-panel>
+        <div class="flex items-start gap-3">
+            <img src="{{ asset('/assets/pwa-icon-192.png') }}" alt="" class="h-11 w-11 shrink-0 rounded-xl object-cover">
+            <div class="min-w-0 flex-1">
+                <p class="text-sm font-black text-navy">Installer PPMC</p>
+                <p class="mt-1 text-xs font-semibold leading-5 text-slate-500" data-pwa-install-text>Ajoutez l'application sur votre ecran d'accueil.</p>
+                <div class="mt-3 flex items-center gap-2">
+                    <button type="button" class="rounded-xl bg-royal px-4 py-2.5 text-xs font-black text-white shadow-glow" data-pwa-install-button>Installer</button>
+                    <button type="button" class="rounded-xl bg-mist px-4 py-2.5 text-xs font-black text-slate-600" data-pwa-install-close>Plus tard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const setLoading = (element) => {
@@ -430,11 +444,56 @@
         });
     </script>
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        (() => {
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+                });
+            }
+
+            if (isStandalone || window.localStorage?.getItem('ppmc_pwa_install_closed') === '1') {
+                return;
+            }
+
+            const panel = document.querySelector('[data-pwa-install-panel]');
+            const installButton = document.querySelector('[data-pwa-install-button]');
+            const closeButton = document.querySelector('[data-pwa-install-close]');
+            const text = document.querySelector('[data-pwa-install-text]');
+            let deferredPrompt = null;
+
+            const showPanel = () => {
+                panel?.classList.remove('hidden');
+            };
+
+            closeButton?.addEventListener('click', () => {
+                panel?.classList.add('hidden');
+                window.localStorage?.setItem('ppmc_pwa_install_closed', '1');
             });
-        }
+
+            window.addEventListener('beforeinstallprompt', (event) => {
+                event.preventDefault();
+                deferredPrompt = event;
+                showPanel();
+            });
+
+            installButton?.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
+
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                panel?.classList.add('hidden');
+            });
+
+            const isIos = /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+            if (isIos) {
+                if (text) text.textContent = 'Sur iPhone, utilisez Partager puis Ajouter a l ecran d accueil.';
+                installButton?.classList.add('hidden');
+                window.setTimeout(showPanel, 1400);
+            }
+        })();
     </script>
     @stack('scripts')
 </body>
