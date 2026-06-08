@@ -1,13 +1,13 @@
-const CACHE_VERSION = 'ppmc-pwa-v1';
+const CACHE_VERSION = 'ppmc-pwa-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
 const PRECACHE_URLS = [
   '/',
   '/manifest.webmanifest',
-  '/icons/icon-192.png',
-  '/icons/icon-512.png',
-  '/icons/icon-maskable-512.png',
+  '/assets/pwa-icon-192.png',
+  '/assets/pwa-icon-512.png',
+  '/assets/pwa-icon-maskable-512.png',
   '/assets/logo.png',
   '/assets/hero-background.jpg'
 ];

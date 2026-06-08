@@ -12,22 +12,38 @@
   "categories": ["business", "education"],
   "icons": [
     {
-      "src": "/icons/icon-192.png",
+      "src": "/assets/pwa-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-512.png",
+      "src": "/assets/pwa-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-maskable-512.png",
+      "src": "/assets/pwa-icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/pwa-screenshot-mobile.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Accueil mobile PPMC"
+    },
+    {
+      "src": "/assets/pwa-screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Catalogue PPMC sur ordinateur"
     }
   ],
   "shortcuts": [
@@ -36,21 +52,21 @@
       "short_name": "Catalogue",
       "description": "Voir toutes les offres PPMC",
       "url": "/catalogue",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Formations",
       "short_name": "Formations",
       "description": "Explorer les formations PPMC",
       "url": "/training",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Comptes sociaux",
       "short_name": "Services",
       "description": "Voir les comptes sociaux disponibles",
       "url": "/service",
-      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/assets/pwa-icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

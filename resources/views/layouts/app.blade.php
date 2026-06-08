@@ -7,7 +7,7 @@
     <title>@yield('title', config('app.name', 'PPMC'))</title>
     <link rel="icon" type="image/png" href="{{ asset('/assets/logo.png') }}">
     <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/logo.png') }}">
-    <link rel="apple-touch-icon" href="{{ asset('/icons/icon-192.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('/assets/pwa-icon-192.png') }}">
     <link rel="manifest" href="{{ asset('/manifest.webmanifest') }}">
     <meta name="theme-color" content="#071B3B">
     <meta name="mobile-web-app-capable" content="yes">
