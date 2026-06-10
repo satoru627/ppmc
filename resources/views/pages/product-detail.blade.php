@@ -120,7 +120,7 @@
                             <p class="text-xs font-black uppercase tracking-[0.16em] text-royal">Suivi apres paiement</p>
                             <h2 id="purchase-popup-title" class="mt-2 text-2xl font-black leading-tight text-navy">Vos informations</h2>
                             <p class="mt-2 text-sm font-semibold leading-6 text-slate-500">
-                                Optionnel: laissez vos coordonnees pour faciliter le suivi apres paiement.
+                                Obligatoire: renseignez votre nom et votre email pour continuer vers le paiement Chariow.
                             </p>
                         </div>
 
@@ -130,19 +130,22 @@
                     </div>
 
                     <form class="mt-5 grid gap-4" data-purchase-popup-form>
+                        <div class="hidden rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-black text-red-700" data-purchase-popup-error>
+                            Impossible d'enregistrer vos informations. Verifiez les champs puis reessayez.
+                        </div>
+
                         <label class="grid gap-2 text-sm font-black text-navy">
                             Nom complet
-                            <input type="text" name="name" autocomplete="name" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="Votre nom">
+                            <input type="text" name="name" autocomplete="name" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="Votre nom" required>
                         </label>
 
                         <label class="grid gap-2 text-sm font-black text-navy">
                             Email
-                            <input type="email" name="email" autocomplete="email" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="votre@email.com">
+                            <input type="email" name="email" autocomplete="email" class="h-12 rounded-2xl border border-slate-200 bg-mist px-4 text-sm font-semibold outline-none transition focus:border-royal focus:bg-white" placeholder="votre@email.com" required>
                         </label>
 
-                        <div class="mt-2 grid gap-3 sm:grid-cols-2">
+                        <div class="mt-2 grid gap-3">
                             <button type="submit" class="rounded-full bg-royal px-6 py-4 text-center text-sm font-black text-white shadow-glow transition hover:-translate-y-1 hover:bg-navy">Continuer vers le paiement</button>
-                            <a href="{{ route('products.buy', $product) }}" class="rounded-full border border-slate-200 px-6 py-4 text-center text-sm font-black text-navy transition hover:border-royal hover:text-royal" data-purchase-popup-skip>Passer cette etape</a>
                         </div>
                     </form>
                 </div>
@@ -155,7 +158,8 @@
                     const trigger = document.querySelector('[data-purchase-popup-trigger]');
                     const popup = document.querySelector('[data-purchase-popup]');
                     const form = document.querySelector('[data-purchase-popup-form]');
-                    const skip = document.querySelector('[data-purchase-popup-skip]');
+                    const errorBox = document.querySelector('[data-purchase-popup-error]');
+                    const submitButton = form?.querySelector('button[type="submit"]');
                     const closeButtons = document.querySelectorAll('[data-purchase-popup-close]');
                     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content || '';
 
@@ -180,19 +184,30 @@
                         window.location.href = buyUrl;
                     };
 
-                    const hasLeadData = () => {
-                        if (!form) return false;
+                    const showError = () => {
+                        errorBox?.classList.remove('hidden');
+                    };
 
-                        return ['name', 'email'].some((field) => {
-                            return (form.elements[field]?.value || '').trim() !== '';
-                        });
+                    const hideError = () => {
+                        errorBox?.classList.add('hidden');
                     };
 
                     const saveLead = async () => {
-                        if (!form || !storeUrl || !hasLeadData()) return;
+                        if (!form || !storeUrl) return false;
+
+                        hideError();
+
+                        if (!form.checkValidity()) {
+                            form.reportValidity();
+
+                            return false;
+                        }
+
+                        submitButton?.setAttribute('disabled', 'disabled');
+                        submitButton?.classList.add('opacity-70', 'cursor-wait');
 
                         try {
-                            await fetch(storeUrl, {
+                            const response = await fetch(storeUrl, {
                                 method: 'POST',
                                 headers: {
                                     'Accept': 'application/json',
@@ -202,8 +217,21 @@
                                 body: new FormData(form),
                                 credentials: 'same-origin',
                             });
+
+                            if (!response.ok) {
+                                throw new Error('Lead validation failed');
+                            }
+
+                            const data = await response.json();
+
+                            return data.saved === true;
                         } catch (error) {
-                            // La sauvegarde est optionnelle: l'achat ne doit pas etre bloque.
+                            showError();
+
+                            return false;
+                        } finally {
+                            submitButton?.removeAttribute('disabled');
+                            submitButton?.classList.remove('opacity-70', 'cursor-wait');
                         }
                     };
 
@@ -214,13 +242,10 @@
 
                     form?.addEventListener('submit', async (event) => {
                         event.preventDefault();
-                        await saveLead();
-                        goToPayment();
-                    });
 
-                    skip?.addEventListener('click', (event) => {
-                        event.preventDefault();
-                        goToPayment();
+                        if (await saveLead()) {
+                            goToPayment();
+                        }
                     });
 
                     closeButtons.forEach((button) => {

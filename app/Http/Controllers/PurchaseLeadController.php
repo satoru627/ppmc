@@ -11,23 +11,19 @@ use Illuminate\Support\Str;
 class PurchaseLeadController extends Controller
 {
     /**
-     * Enregistre les coordonnees optionnelles avant la redirection Chariow.
+     * Enregistre les coordonnees obligatoires avant la redirection Chariow.
      */
     public function store(Request $request, Product $product): JsonResponse
     {
         abort_unless($product->is_active && $product->hasChariowCheckout(), 404);
 
         $validated = $request->validate([
-            'name' => ['nullable', 'string', 'max:120'],
-            'email' => ['nullable', 'email', 'max:190'],
+            'name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:190'],
         ]);
 
         $name = trim((string) ($validated['name'] ?? ''));
         $email = trim((string) ($validated['email'] ?? ''));
-
-        if ($name === '' && $email === '') {
-            return response()->json(['saved' => false]);
-        }
 
         $lead = PurchaseLead::create([
             'product_id' => $product->id,
@@ -39,6 +35,8 @@ class PurchaseLeadController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => Str::limit((string) $request->userAgent(), 500, ''),
         ]);
+
+        $request->session()->put("purchase_leads.{$product->id}", $lead->id);
 
         return response()->json([
             'saved' => true,

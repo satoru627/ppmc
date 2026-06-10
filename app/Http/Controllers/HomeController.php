@@ -330,7 +330,7 @@ class HomeController extends Controller
     /**
      * Redirige le visiteur vers la page d'achat Chariow.
      */
-    public function buy(Product $product): RedirectResponse
+    public function buy(Request $request, Product $product): RedirectResponse
     {
         abort_unless($product->is_active, 404);
 
@@ -338,6 +338,12 @@ class HomeController extends Controller
             return redirect()
                 ->route('products.show', $product)
                 ->withErrors(['product' => 'Ce produit sera disponible des que le lien Chariow sera configure.']);
+        }
+
+        if (! $request->session()->has("purchase_leads.{$product->id}")) {
+            return redirect()
+                ->route('products.show', $product)
+                ->withErrors(['purchase' => 'Veuillez renseigner votre nom et votre email avant de continuer vers le paiement.']);
         }
 
         return redirect()->away($product->chariow_checkout_url);
