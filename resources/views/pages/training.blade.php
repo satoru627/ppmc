@@ -41,13 +41,7 @@
     <section class="bg-mist px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div class="mx-auto max-w-7xl">
             <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-                <div class="max-w-3xl">
-                    <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Formations</p>
-                 
-                    <p class="mt-3 text-sm font-semibold leading-7 text-slate-500">
-                        Recherchez une formation, filtrez par categorie et ouvrez directement les details.
-                    </p>
-                </div>
+
                 <span class="w-fit rounded-full bg-white px-5 py-3 text-xs font-black text-royal shadow-soft sm:text-sm">
                     {{ $courseCount }} formation{{ $courseCount > 1 ? 's' : '' }}
                 </span>

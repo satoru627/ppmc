@@ -134,7 +134,7 @@
                 <a href="{{ route('home') }}" class="text-sm font-extrabold transition {{ $navText }}">Accueil</a>
                 <a href="{{ route('catalog') }}" class="text-sm font-extrabold transition {{ $navText }}">Catalogue</a>
                 <a href="{{ route('training') }}" class="text-sm font-extrabold transition {{ $navText }}">Formations</a>
-                <a href="{{ route('service') }}" class="text-sm font-extrabold transition {{ $navText }}">comptes sociaux </a>
+                <a href="{{ route('service') }}" class="text-sm font-extrabold transition {{ $navText }}">Comptes sociaux</a>
                 <a href="{{ route('about') }}" class="text-sm font-extrabold transition {{ $navText }}">A propos</a>
             </nav>
 
@@ -175,7 +175,7 @@
             <a href="{{ route('home') }}" class="block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Accueil</a>
             <a href="{{ route('catalog') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Catalogue</a>
             <a href="{{ route('training') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Formations</a>
-            <a href="{{ route('service') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>comptes sauciaux</a>
+            <a href="{{ route('service') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Comptes sociaux</a>
             <a href="{{ route('about') }}" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>A propos</a>
             <a href="{{ route('home') }}#avis" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>Avis</a>
             <a href="{{ route('home') }}#faq" class="mt-2 block rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm font-bold text-white/80 transition hover:bg-white/10 hover:text-[#E3A72F]" data-nav-link>FAQ</a>
@@ -227,7 +227,7 @@
                 <nav class="flex flex-wrap gap-x-5 gap-y-2 text-sm font-bold text-white/65">
                     <a href="{{ route('catalog') }}" class="transition hover:text-gold">Catalogue</a>
                     <a href="{{ route('training') }}" class="transition hover:text-gold">Formations</a>
-                    <a href="{{ route('service') }}" class="transition hover:text-gold">comptes sociaux</a>
+                    <a href="{{ route('service') }}" class="transition hover:text-gold">Comptes sociaux</a>
                     <a href="{{ route('about') }}" class="transition hover:text-gold">A propos</a>
                 </nav>
             </div>

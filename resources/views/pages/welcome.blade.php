@@ -44,7 +44,9 @@
     @endphp
 
     <div class="min-h-screen bg-white text-[#071B3B]">
-        <section class="relative overflow-hidden bg-[#000080] bg-cover bg-center text-white" style="background-image: url('{{ asset('/assets/hero-background.jpg') }}')">
+        <section class="relative overflow-hidden bg-[#000080] text-white">
+            <div class="absolute inset-0 scale-105 bg-cover bg-center blur-sm" style="background-image: url('{{ asset('/assets/equipe.jpg') }}')" aria-hidden="true"></div>
+            <div class="absolute inset-0 bg-[#071B3B]/58" aria-hidden="true"></div>
             <div class="absolute inset-x-0 bottom-0 h-px bg-white/10"></div>
 
             <header class="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8">
@@ -58,7 +60,7 @@
                         <a href="{{ route('home') }}" class="border-b-2 border-[#E3A72F] pb-1 text-sm font-black text-white">Accueil</a>
                         <a href="{{ route('catalog') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Catalogue</a>
                         <a href="{{ route('training') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Formations</a>
-                        <a href="{{ route('service') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">comptes sociaux</a>
+                        <a href="{{ route('service') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Comptes sociaux</a>
                         <a href="{{ route('about') }}" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">A propos</a>
                         <a href="#avis" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">Avis</a>
                         <a href="#faq" class="text-sm font-bold text-white/75 transition hover:text-[#E3A72F]">FAQ</a>
@@ -120,12 +122,12 @@
 
             <div class="relative z-10 mx-auto grid max-w-7xl grid-cols-[minmax(0,0.68fr)_minmax(9.5rem,1fr)] items-start gap-x-2 gap-y-4 px-3 pb-7 pt-24 min-[390px]:grid-cols-[minmax(0,0.7fr)_minmax(10.8rem,1.05fr)] min-[430px]:grid-cols-[minmax(0,0.74fr)_minmax(12rem,1.08fr)] sm:grid-cols-[minmax(0,0.85fr)_minmax(18rem,0.95fr)] sm:items-center sm:gap-x-6 sm:gap-y-8 sm:px-6 sm:pb-16 sm:pt-32 md:grid-cols-[minmax(0,0.9fr)_minmax(21rem,0.95fr)] md:gap-x-8 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:pb-20 lg:pt-36">
                 <div class="min-w-0">
-                    <span class="inline-flex max-w-full rounded-full border border-white/15 bg-[#000080] bg-cover bg-center px-2 py-1 text-[7px] font-black uppercase tracking-[0.08em] text-white shadow-glow sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.16em]" style="background-image: url('{{ asset('/assets/hero-background.jpg') }}')">Plateforme digitale</span>
+                    <span class="inline-flex max-w-full rounded-full border border-white/15  bg-cover bg-center px-2 py-1 text-[7px] font-black uppercase tracking-[0.08em] text-white shadow-glow sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.16em]">Plateforme digitale</span>
                     <h1 class="mt-6 max-w-3xl text-[1.08rem] font-black leading-[1.03] tracking-normal min-[390px]:text-[1.2rem] min-[430px]:text-[1.34rem] sm:mt-10 sm:text-4xl md:text-5xl lg:text-[4.4rem]">
-                        Formez-vous et lancez vos revenus <span class="text-[#D9A233]">digitaux</span>. 
+                        Pixel Pulse Media Center, votre partenaire en <span class="text-[#D9A233]">solutions digitales et médias</span>.
                     </h1>
                     <p class="mt-3 hidden max-w-2xl text-sm font-semibold leading-7 text-white/75 sm:mt-5 sm:block sm:text-lg sm:leading-8">
-                        Accedez a des formations pratiques et a des comptes digitaux selectionnes pour avancer plus vite.
+                        Des formations, services digitaux et comptes sociaux selectionnes pour aider les createurs, entrepreneurs et marques a developper une presence rentable en ligne.
                     </p>
                 </div>
 
@@ -135,7 +137,7 @@
 
                 <div class="col-span-2 lg:col-span-1 lg:col-start-1">
                     <p class="mb-3 max-w-2xl text-[11px] font-semibold leading-5 text-white/75 sm:hidden">
-                        Formations pratiques, comptes digitaux selectionnes et accompagnement pour avancer plus vite.
+                        Formations, services digitaux et comptes sociaux pour developper une presence rentable en ligne.
                     </p>
                     <div class="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:gap-3">
                         <a href="{{ route('training') }}" class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#D9A233] px-3 py-2.5 text-[10px] font-black text-white shadow-[0_16px_36px_rgba(217,162,51,.35)] transition hover:-translate-y-1 sm:w-auto sm:gap-2 sm:rounded-xl sm:px-6 sm:py-4 sm:text-sm">Formations <x-icon name="arrow-right" class="h-3.5 w-3.5 sm:h-4 sm:w-4" /></a>
