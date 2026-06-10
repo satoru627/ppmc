@@ -387,6 +387,10 @@
                 const product = livePurchase.querySelector('[data-live-purchase-product]');
                 const time = livePurchase.querySelector('[data-live-purchase-time]');
                 const close = livePurchase.querySelector('[data-live-purchase-close]');
+                const firstNotificationDelay = 10000;
+                const nextNotificationDelay = 30000;
+                const notificationVisibleDuration = 10000;
+                let interval = null;
 
                 const showEvent = () => {
                     const item = events[index % events.length];
@@ -403,18 +407,21 @@
 
                     window.setTimeout(() => {
                         livePurchase.classList.add('pointer-events-none', 'translate-y-4', 'opacity-0');
-                    }, 6200);
+                    }, notificationVisibleDuration);
 
                     index += 1;
                 };
 
-                const interval = window.setInterval(showEvent, 9800);
-                window.setTimeout(showEvent, 1600);
+                const firstTimeout = window.setTimeout(() => {
+                    showEvent();
+                    interval = window.setInterval(showEvent, nextNotificationDelay);
+                }, firstNotificationDelay);
 
                 close?.addEventListener('click', () => {
                     livePurchase.classList.add('hidden', 'pointer-events-none');
                     window.localStorage?.setItem('ppmc_live_purchase_demo_closed', '1');
-                    window.clearInterval(interval);
+                    window.clearTimeout(firstTimeout);
+                    if (interval) window.clearInterval(interval);
                 });
             }
 
