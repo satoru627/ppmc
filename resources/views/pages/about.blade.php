@@ -236,6 +236,55 @@
         </div>
     </section>
 
+    <section class="bg-white px-4 py-8 sm:px-6 sm:py-20 lg:px-8" id="localisation">
+        <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:gap-10">
+            <div class="rounded-[1.5rem] border border-slate-100 bg-mist p-5 shadow-premium sm:rounded-[2rem] sm:p-8">
+                <p class="text-xs font-black uppercase tracking-[0.18em] text-royal sm:text-sm">Nous localiser</p>
+                <h2 class="mt-2 text-2xl font-black leading-tight text-navy sm:mt-3 sm:text-5xl">Retrouvez PPMC a Yaounde.</h2>
+                <p class="mt-4 text-sm font-semibold leading-7 text-slate-500 sm:text-base sm:leading-8">
+                    Notre point de localisation est situe a Rue 7.960, Yaounde, Cameroun. Utilisez la carte pour ouvrir directement l itineraire depuis votre position.
+                </p>
+
+                <div class="mt-6 grid gap-3">
+                    <div class="rounded-2xl bg-white p-4 shadow-soft">
+                        <p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Adresse</p>
+                        <p class="mt-1 text-sm font-black text-navy sm:text-base">Rue 7.960, Yaounde, Cameroun</p>
+                    </div>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-2xl bg-white p-4 shadow-soft">
+                            <p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Latitude</p>
+                            <p class="mt-1 text-sm font-black text-navy">3.7976238</p>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4 shadow-soft">
+                            <p class="text-[10px] font-black uppercase tracking-[0.14em] text-slate-400">Longitude</p>
+                            <p class="mt-1 text-sm font-black text-navy">11.4801635</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col gap-3 sm:flex-row">
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=3.7976238,11.4801635" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 rounded-full bg-royal px-5 py-3 text-xs font-black text-white shadow-glow transition hover:bg-navy sm:px-6 sm:py-4 sm:text-sm">
+                        Ouvrir l itineraire
+                        <x-icon name="arrow-right" class="h-4 w-4" />
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=3.7976238,11.4801635" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-5 py-3 text-xs font-black text-navy transition hover:border-royal hover:text-royal sm:px-6 sm:py-4 sm:text-sm">
+                        Ouvrir la carte
+                    </a>
+                </div>
+            </div>
+
+            <div class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-premium sm:rounded-[2rem]">
+                <iframe
+                    title="Localisation PPMC a Yaounde"
+                    src="https://www.google.com/maps?q=3.7976238,11.4801635&z=16&output=embed"
+                    class="h-[340px] w-full border-0 sm:h-[520px] lg:h-full"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
     <section class="bg-mist px-4 py-8 sm:px-6 sm:py-20 lg:px-8">
         <div class="mx-auto flex max-w-7xl flex-col gap-5 rounded-[1.5rem] bg-white p-5 shadow-premium sm:rounded-[2rem] sm:p-8 md:flex-row md:items-center md:justify-between">
             <div>
