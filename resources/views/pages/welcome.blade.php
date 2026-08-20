@@ -124,16 +124,16 @@
                 <div class="min-w-0">
                     <span class="inline-flex max-w-full rounded-full border border-white/15  bg-cover bg-center px-2 py-1 text-[7px] font-black uppercase tracking-[0.08em] text-white shadow-glow sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.16em]">Plateforme digitale</span>
                     <h1 class="mt-6 max-w-3xl text-[1.08rem] font-black leading-[1.03] tracking-normal min-[390px]:text-[1.2rem] min-[430px]:text-[1.34rem] sm:mt-10 sm:text-4xl md:text-5xl lg:text-[4.4rem]">
-                        Pixel Pulse Media Center, votre partenaire en <span class="text-[#D9A233]">solutions digitales et médias</span>.
+                        Pixel Pulse Media Center, votre partenaire en <span class="text-[#D9A233]">solutions digitales et mÃ©dias</span>.
                     </h1>
                     <p class="mt-3 hidden max-w-2xl text-sm font-semibold leading-7 text-white/75 sm:mt-5 sm:block sm:text-lg sm:leading-8">
                         Des formations, services digitaux et comptes sociaux selectionnes pour aider les createurs, entrepreneurs et marques a developper une presence rentable en ligne.
                     </p>
                 </div>
-
+<!-- 
                 <figure class="relative w-full justify-self-end sm:max-w-none lg:row-span-2">
                     <img src="{{ asset('/assets/mockup.png') }}" alt="Mockup reseaux sociaux PPMC" class="w-[112%] max-w-none object-contain drop-shadow-2xl sm:w-full sm:max-w-full">
-                </figure>
+                </figure> -->
 
                 <div class="col-span-2 lg:col-span-1 lg:col-start-1">
                     <p class="mb-3 max-w-2xl text-[11px] font-semibold leading-5 text-white/75 sm:hidden">
