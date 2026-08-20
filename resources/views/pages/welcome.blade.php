@@ -123,15 +123,14 @@
             <div class="relative z-10 mx-auto grid max-w-7xl grid-cols-[minmax(0,0.68fr)_minmax(9.5rem,1fr)] items-start gap-x-2 gap-y-4 px-3 pb-7 pt-24 min-[390px]:grid-cols-[minmax(0,0.7fr)_minmax(10.8rem,1.05fr)] min-[430px]:grid-cols-[minmax(0,0.74fr)_minmax(12rem,1.08fr)] sm:grid-cols-[minmax(0,0.85fr)_minmax(18rem,0.95fr)] sm:items-center sm:gap-x-6 sm:gap-y-8 sm:px-6 sm:pb-16 sm:pt-32 md:grid-cols-[minmax(0,0.9fr)_minmax(21rem,0.95fr)] md:gap-x-8 lg:grid-cols-[1fr_0.95fr] lg:px-8 lg:pb-20 lg:pt-36">
                 <div class="min-w-0">
                     <span class="inline-flex max-w-full rounded-full border border-white/15  bg-cover bg-center px-2 py-1 text-[7px] font-black uppercase tracking-[0.08em] text-white shadow-glow sm:px-4 sm:py-2 sm:text-[10px] sm:tracking-[0.16em]">Plateforme digitale</span>
-                   <!-- Conteneur parent pour centrer au milieu de l'écran -->
-<div class="flex h-screen w-screen items-center justify-center bg-gray-900 p-4">
+                   
 
-    <!-- Le titre configuré sur une seule ligne -->
+    
     <h1 class="whitespace-nowrap text-center text-[1.08rem] font-black tracking-normal min-[390px]:text-[1.2rem] min-[430px]:text-[1.34rem] sm:text-4xl md:text-5xl lg:text-[4.4rem]">
         Pixel Pulse Media Center, votre partenaire en <span class="text-[#D9A233]">solutions digitales et medias</span>.
     </h1>
 
-</div>
+
 
                     <p class="mt-3 hidden max-w-2xl text-sm font-semibold leading-7 text-white/75 sm:mt-5 sm:block sm:text-lg sm:leading-8">
                         Des formations, services digitaux et comptes sociaux selectionnes pour aider les createurs, entrepreneurs et marques a developper une presence rentable en ligne.
