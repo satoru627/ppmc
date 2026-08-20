@@ -127,7 +127,7 @@
 
     
     <h1 class="whitespace-nowrap text-center text-[1.08rem] font-black tracking-normal min-[390px]:text-[1.2rem] min-[430px]:text-[1.34rem] sm:text-4xl md:text-5xl lg:text-[4.4rem]">
-        Pixel Pulse Media Center, votre partenaire en <span class="text-[#D9A233]">solutions digitales et medias</span>.
+        Pixel Pulse Media Center, votre  <br> partenaire en <span class="text-[#D9A233]">solutions  <br>digitales et medias</span>.
     </h1>
 
 
